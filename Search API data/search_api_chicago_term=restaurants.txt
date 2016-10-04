@@ -1,0 +1,652 @@
+{
+    "total": 11691,
+    "businesses": [
+        {
+            "location": {
+                "address3": "",
+                "country": "US",
+                "state": "IL",
+                "zip_code": "60647",
+                "city": "Chicago",
+                "address1": "2529 N Milwaukee Ave",
+                "address2": ""
+            },
+            "id": "the-crab-pad-chicago",
+            "coordinates": {
+                "latitude": 41.92744,
+                "longitude": -87.70424
+            },
+            "categories": [
+                {
+                    "title": "Seafood",
+                    "alias": "seafood"
+                },
+                {
+                    "title": "Cajun/Creole",
+                    "alias": "cajun"
+                },
+                {
+                    "title": "Noodles",
+                    "alias": "noodles"
+                }
+            ],
+            "phone": "+17733608332",
+            "rating": 4.5,
+            "price": "$$",
+            "name": "The Crab Pad",
+            "url": "https://www.yelp.com/biz/the-crab-pad-chicago?adjust_creative=rbUQTMcdLuHbnLUrQJUGJw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=rbUQTMcdLuHbnLUrQJUGJw",
+            "image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/o-QrIVTDlFuVAe87nvDuYA/o.jpg",
+            "review_count": 58
+        },
+        {
+            "location": {
+                "address3": null,
+                "country": "US",
+                "state": "IL",
+                "zip_code": "60657",
+                "city": "Chicago",
+                "address1": "843 West Belmont Ave",
+                "address2": ""
+            },
+            "id": "aloha-poke-co-chicago-6",
+            "coordinates": {
+                "latitude": 41.9397697,
+                "longitude": -87.6510644
+            },
+            "categories": [
+                {
+                    "title": "Hawaiian",
+                    "alias": "hawaiian"
+                }
+            ],
+            "rating": 4.5,
+            "price": "$$",
+            "name": "Aloha Poke Co",
+            "url": "https://www.yelp.com/biz/aloha-poke-co-chicago-6?adjust_creative=rbUQTMcdLuHbnLUrQJUGJw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=rbUQTMcdLuHbnLUrQJUGJw",
+            "image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/TjDDuPrbv09fTwRJJk1lEQ/o.jpg",
+            "review_count": 65
+        },
+        {
+            "location": {
+                "address3": "",
+                "country": "US",
+                "state": "IL",
+                "zip_code": "60622",
+                "city": "Chicago",
+                "address1": "2049 W Division",
+                "address2": null
+            },
+            "id": "pub-royale-chicago",
+            "coordinates": {
+                "latitude": 41.902866,
+                "longitude": -87.679168
+            },
+            "categories": [
+                {
+                    "title": "Pubs",
+                    "alias": "pubs"
+                },
+                {
+                    "title": "British",
+                    "alias": "british"
+                },
+                {
+                    "title": "Indian",
+                    "alias": "indpak"
+                }
+            ],
+            "phone": "+17736616874",
+            "rating": 4,
+            "price": "$$",
+            "name": "Pub Royale",
+            "url": "https://www.yelp.com/biz/pub-royale-chicago?adjust_creative=rbUQTMcdLuHbnLUrQJUGJw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=rbUQTMcdLuHbnLUrQJUGJw",
+            "image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/j2-p3LVdbpiS54R36I2gUA/o.jpg",
+            "review_count": 164
+        },
+        {
+            "location": {
+                "address3": null,
+                "country": "US",
+                "state": "IL",
+                "zip_code": "60647",
+                "city": "Chicago",
+                "address1": "3209 W Armitage Ave",
+                "address2": ""
+            },
+            "id": "giant-chicago-2",
+            "coordinates": {
+                "latitude": 41.9170989990234,
+                "longitude": -87.7074737548828
+            },
+            "categories": [
+                {
+                    "title": "American (New)",
+                    "alias": "newamerican"
+                }
+            ],
+            "phone": "+17732520997",
+            "rating": 4.5,
+            "price": "$$$",
+            "name": "Giant",
+            "url": "https://www.yelp.com/biz/giant-chicago-2?adjust_creative=rbUQTMcdLuHbnLUrQJUGJw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=rbUQTMcdLuHbnLUrQJUGJw",
+            "image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/WIcsRysPdaLp8duM9zpr1g/o.jpg",
+            "review_count": 46
+        },
+        {
+            "location": {
+                "address3": "",
+                "country": "US",
+                "state": "IL",
+                "zip_code": "60610",
+                "city": "Chicago",
+                "address1": "52 W Elm St",
+                "address2": ""
+            },
+            "id": "blue-door-kitchen-and-garden-chicago-2",
+            "coordinates": {
+                "latitude": 41.9032749,
+                "longitude": -87.6304693
+            },
+            "categories": [
+                {
+                    "title": "American (Traditional)",
+                    "alias": "tradamerican"
+                }
+            ],
+            "phone": "+13125734000",
+            "rating": 4,
+            "price": "$$",
+            "name": "Blue Door Kitchen & Garden",
+            "url": "https://www.yelp.com/biz/blue-door-kitchen-and-garden-chicago-2?adjust_creative=rbUQTMcdLuHbnLUrQJUGJw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=rbUQTMcdLuHbnLUrQJUGJw",
+            "image_url": "https://s3-media1.fl.yelpcdn.com/bphoto/-VTbeslPaAkQ9SSmNVZojg/o.jpg",
+            "review_count": 77
+        },
+        {
+            "location": {
+                "address3": null,
+                "country": "US",
+                "state": "IL",
+                "zip_code": "60607",
+                "city": "Chicago",
+                "address1": "1111 W Lake St",
+                "address2": ""
+            },
+            "id": "honeys-chicago",
+            "coordinates": {
+                "latitude": 41.885288,
+                "longitude": -87.655006
+            },
+            "categories": [
+                {
+                    "title": "American (New)",
+                    "alias": "newamerican"
+                },
+                {
+                    "title": "Bars",
+                    "alias": "bars"
+                },
+                {
+                    "title": "Mediterranean",
+                    "alias": "mediterranean"
+                }
+            ],
+            "phone": "+13128775929",
+            "rating": 4,
+            "price": "$$$",
+            "name": "Honey's",
+            "url": "https://www.yelp.com/biz/honeys-chicago?adjust_creative=rbUQTMcdLuHbnLUrQJUGJw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=rbUQTMcdLuHbnLUrQJUGJw",
+            "image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/uHlOFEe7xYp_uFqyCvFL4Q/o.jpg",
+            "review_count": 37
+        },
+        {
+            "location": {
+                "address3": "",
+                "country": "US",
+                "state": "IL",
+                "zip_code": "60611",
+                "city": "Chicago",
+                "address1": "155 East Ontario St",
+                "address2": ""
+            },
+            "id": "copper-fox-gastropub-chicago",
+            "coordinates": {
+                "latitude": 41.8932069,
+                "longitude": -87.6235963
+            },
+            "categories": [
+                {
+                    "title": "American (New)",
+                    "alias": "newamerican"
+                },
+                {
+                    "title": "Gastropubs",
+                    "alias": "gastropubs"
+                }
+            ],
+            "phone": "+13122558505",
+            "rating": 4.5,
+            "price": "$$",
+            "name": "Copper Fox Gastropub",
+            "url": "https://www.yelp.com/biz/copper-fox-gastropub-chicago?adjust_creative=rbUQTMcdLuHbnLUrQJUGJw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=rbUQTMcdLuHbnLUrQJUGJw",
+            "image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/7p_tBNaOuOHNSWKY2-mniw/o.jpg",
+            "review_count": 131
+        },
+        {
+            "location": {
+                "address3": "",
+                "country": "US",
+                "state": "IL",
+                "zip_code": "60607",
+                "city": "Chicago",
+                "address1": "326 N Morgan St",
+                "address2": ""
+            },
+            "id": "smack-shack-chicago-chicago",
+            "coordinates": {
+                "latitude": 41.8874674290419,
+                "longitude": -87.6522423326969
+            },
+            "categories": [
+                {
+                    "title": "Seafood",
+                    "alias": "seafood"
+                },
+                {
+                    "title": "American (Traditional)",
+                    "alias": "tradamerican"
+                }
+            ],
+            "phone": "+13129731336",
+            "rating": 4,
+            "price": "$$",
+            "name": "Smack Shack - Chicago",
+            "url": "https://www.yelp.com/biz/smack-shack-chicago-chicago?adjust_creative=rbUQTMcdLuHbnLUrQJUGJw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=rbUQTMcdLuHbnLUrQJUGJw",
+            "image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/xYXl6iSU8IFYdW-1Lp4zLA/o.jpg",
+            "review_count": 95
+        },
+        {
+            "location": {
+                "address3": "",
+                "country": "US",
+                "state": "IL",
+                "zip_code": "60607",
+                "city": "Chicago",
+                "address1": "809 W Randolph St",
+                "address2": ""
+            },
+            "id": "girl-and-the-goat-chicago",
+            "coordinates": {
+                "latitude": 41.8841049992939,
+                "longitude": -87.6479440725005
+            },
+            "categories": [
+                {
+                    "title": "American (New)",
+                    "alias": "newamerican"
+                }
+            ],
+            "phone": "+13124926262",
+            "rating": 4.5,
+            "price": "$$$",
+            "name": "Girl & the Goat",
+            "url": "https://www.yelp.com/biz/girl-and-the-goat-chicago?adjust_creative=rbUQTMcdLuHbnLUrQJUGJw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=rbUQTMcdLuHbnLUrQJUGJw",
+            "image_url": "https://s3-media1.fl.yelpcdn.com/bphoto/ya6gjD4BPlxe7AKMj_5WsA/o.jpg",
+            "review_count": 5681
+        },
+        {
+            "location": {
+                "address3": "",
+                "country": "US",
+                "state": "IL",
+                "zip_code": "60611",
+                "city": "Chicago",
+                "address1": "500 N Michigan Ave",
+                "address2": null
+            },
+            "id": "the-purple-pig-chicago",
+            "coordinates": {
+                "latitude": 41.89101954311,
+                "longitude": -87.6245617816512
+            },
+            "categories": [
+                {
+                    "title": "Tapas/Small Plates",
+                    "alias": "tapasmallplates"
+                },
+                {
+                    "title": "Mediterranean",
+                    "alias": "mediterranean"
+                }
+            ],
+            "phone": "+13124641744",
+            "rating": 4,
+            "price": "$$",
+            "name": "The Purple Pig",
+            "url": "https://www.yelp.com/biz/the-purple-pig-chicago?adjust_creative=rbUQTMcdLuHbnLUrQJUGJw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=rbUQTMcdLuHbnLUrQJUGJw",
+            "image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/_A9av72FoUEpGnf1WR7hIg/o.jpg",
+            "review_count": 4634
+        },
+        {
+            "location": {
+                "address3": "",
+                "country": "US",
+                "state": "IL",
+                "zip_code": "60613",
+                "city": "Chicago",
+                "address1": "1612 W Irving Park Rd",
+                "address2": null
+            },
+            "id": "beard-and-belly-chicago",
+            "coordinates": {
+                "latitude": 41.9545555114746,
+                "longitude": -87.6697311401367
+            },
+            "categories": [
+                {
+                    "title": "Gastropubs",
+                    "alias": "gastropubs"
+                }
+            ],
+            "phone": "+17736658210",
+            "rating": 5,
+            "price": "$$",
+            "name": "Beard & Belly",
+            "url": "https://www.yelp.com/biz/beard-and-belly-chicago?adjust_creative=rbUQTMcdLuHbnLUrQJUGJw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=rbUQTMcdLuHbnLUrQJUGJw",
+            "image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/P4x38ys3_KT-GOg6M82TRg/o.jpg",
+            "review_count": 16
+        },
+        {
+            "location": {
+                "address3": "",
+                "country": "US",
+                "state": "IL",
+                "zip_code": "60625",
+                "city": "Chicago",
+                "address1": "3658 W Lawrence Ave",
+                "address2": null
+            },
+            "id": "t-and-b-grill-chicago",
+            "coordinates": {
+                "latitude": 41.9684649,
+                "longitude": -87.7203495
+            },
+            "categories": [
+                {
+                    "title": "Latin American",
+                    "alias": "latin"
+                }
+            ],
+            "phone": "+17739617016",
+            "rating": 5,
+            "price": "$",
+            "name": "T & B Grill",
+            "url": "https://www.yelp.com/biz/t-and-b-grill-chicago?adjust_creative=rbUQTMcdLuHbnLUrQJUGJw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=rbUQTMcdLuHbnLUrQJUGJw",
+            "image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/oj7Ug8kv9Q9DLvbCQKv-Rw/o.jpg",
+            "review_count": 249
+        },
+        {
+            "location": {
+                "address3": "",
+                "country": "US",
+                "state": "IL",
+                "zip_code": "60614",
+                "city": "Chicago",
+                "address1": "1480 W Webster Ave",
+                "address2": ""
+            },
+            "id": "distilled-chicago-chicago",
+            "coordinates": {
+                "latitude": 41.9218101501465,
+                "longitude": -87.6662826538086
+            },
+            "categories": [
+                {
+                    "title": "American (Traditional)",
+                    "alias": "tradamerican"
+                },
+                {
+                    "title": "Pubs",
+                    "alias": "pubs"
+                },
+                {
+                    "title": "Breakfast & Brunch",
+                    "alias": "breakfast_brunch"
+                }
+            ],
+            "phone": "+17737703703",
+            "rating": 4,
+            "price": "$$",
+            "name": "Distilled Chicago",
+            "url": "https://www.yelp.com/biz/distilled-chicago-chicago?adjust_creative=rbUQTMcdLuHbnLUrQJUGJw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=rbUQTMcdLuHbnLUrQJUGJw",
+            "image_url": "https://s3-media1.fl.yelpcdn.com/bphoto/ZbEBSaarE0pkospNp2ZDNQ/o.jpg",
+            "review_count": 12
+        },
+        {
+            "location": {
+                "address3": "",
+                "country": "US",
+                "state": "IL",
+                "zip_code": "60625",
+                "city": "Chicago",
+                "address1": "4539 N Lincoln Ave",
+                "address2": null
+            },
+            "id": "gather-chicago",
+            "coordinates": {
+                "latitude": 41.9643402099609,
+                "longitude": -87.6853637695312
+            },
+            "categories": [
+                {
+                    "title": "Wine Bars",
+                    "alias": "wine_bars"
+                },
+                {
+                    "title": "American (New)",
+                    "alias": "newamerican"
+                }
+            ],
+            "phone": "+17735069300",
+            "rating": 4.5,
+            "price": "$$",
+            "name": "Gather",
+            "url": "https://www.yelp.com/biz/gather-chicago?adjust_creative=rbUQTMcdLuHbnLUrQJUGJw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=rbUQTMcdLuHbnLUrQJUGJw",
+            "image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/-nz9DrkE_O_bEc-rRNzbKg/o.jpg",
+            "review_count": 485
+        },
+        {
+            "location": {
+                "address3": "",
+                "country": "US",
+                "state": "IL",
+                "zip_code": "60660",
+                "city": "Chicago",
+                "address1": "1541 W Bryn Mawr Ave",
+                "address2": ""
+            },
+            "id": "little-bad-wolf-chicago",
+            "coordinates": {
+                "latitude": 41.9833631,
+                "longitude": -87.6689776
+            },
+            "categories": [
+                {
+                    "title": "American (Traditional)",
+                    "alias": "tradamerican"
+                },
+                {
+                    "title": "Bars",
+                    "alias": "bars"
+                }
+            ],
+            "phone": "+17739426399",
+            "rating": 4.5,
+            "price": "$$",
+            "name": "Little Bad Wolf",
+            "url": "https://www.yelp.com/biz/little-bad-wolf-chicago?adjust_creative=rbUQTMcdLuHbnLUrQJUGJw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=rbUQTMcdLuHbnLUrQJUGJw",
+            "image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/1oos1yepJ2wRKHvtpt6XZQ/o.jpg",
+            "review_count": 542
+        },
+        {
+            "location": {
+                "address3": "",
+                "country": "US",
+                "state": "IL",
+                "zip_code": "60614",
+                "city": "Chicago",
+                "address1": "1417 W Fullerton Ave",
+                "address2": ""
+            },
+            "id": "knife-and-tine-chicago-2",
+            "coordinates": {
+                "latitude": 41.924936,
+                "longitude": -87.664023
+            },
+            "categories": [
+                {
+                    "title": "American (New)",
+                    "alias": "newamerican"
+                }
+            ],
+            "phone": "+17736978311",
+            "rating": 4.5,
+            "price": "$$",
+            "name": "Knife & Tine",
+            "url": "https://www.yelp.com/biz/knife-and-tine-chicago-2?adjust_creative=rbUQTMcdLuHbnLUrQJUGJw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=rbUQTMcdLuHbnLUrQJUGJw",
+            "image_url": "https://s3-media1.fl.yelpcdn.com/bphoto/zn5Y6HNbw88IUTWbpnWElA/o.jpg",
+            "review_count": 300
+        },
+        {
+            "location": {
+                "address3": "",
+                "country": "US",
+                "state": "IL",
+                "zip_code": "60657",
+                "city": "Chicago",
+                "address1": "1300 W Wellington Ave",
+                "address2": null
+            },
+            "id": "farm-bar-lakeview-chicago",
+            "coordinates": {
+                "latitude": 41.93643,
+                "longitude": -87.66141
+            },
+            "categories": [
+                {
+                    "title": "American (Traditional)",
+                    "alias": "tradamerican"
+                },
+                {
+                    "title": "Gastropubs",
+                    "alias": "gastropubs"
+                },
+                {
+                    "title": "Burgers",
+                    "alias": "burgers"
+                }
+            ],
+            "phone": "+17732812599",
+            "rating": 4,
+            "price": "$$",
+            "name": "Farm Bar Lakeview",
+            "url": "https://www.yelp.com/biz/farm-bar-lakeview-chicago?adjust_creative=rbUQTMcdLuHbnLUrQJUGJw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=rbUQTMcdLuHbnLUrQJUGJw",
+            "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/POlmc3QEpevtFYUO4a6xpQ/o.jpg",
+            "review_count": 89
+        },
+        {
+            "location": {
+                "address3": "",
+                "country": "US",
+                "state": "IL",
+                "zip_code": "60657",
+                "city": "Chicago",
+                "address1": "3343 N Broadway",
+                "address2": ""
+            },
+            "id": "ms-ts-southern-fried-chicken-chicago-2",
+            "coordinates": {
+                "latitude": 41.9429808715583,
+                "longitude": -87.6446008816721
+            },
+            "categories": [
+                {
+                    "title": "Southern",
+                    "alias": "southern"
+                }
+            ],
+            "phone": "+17737282500",
+            "rating": 4.5,
+            "price": "$",
+            "name": "Ms. T's Southern Fried Chicken",
+            "url": "https://www.yelp.com/biz/ms-ts-southern-fried-chicken-chicago-2?adjust_creative=rbUQTMcdLuHbnLUrQJUGJw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=rbUQTMcdLuHbnLUrQJUGJw",
+            "image_url": "https://s3-media1.fl.yelpcdn.com/bphoto/9C9wKun-D06HKpRW_SfhoA/o.jpg",
+            "review_count": 21
+        },
+        {
+            "location": {
+                "address3": null,
+                "country": "US",
+                "state": "IL",
+                "zip_code": "60647",
+                "city": "Chicago",
+                "address1": "1904 North Western Ave",
+                "address2": ""
+            },
+            "id": "animale-chicago",
+            "coordinates": {
+                "latitude": 41.9159545898438,
+                "longitude": -87.6877365112305
+            },
+            "categories": [
+                {
+                    "title": "Italian",
+                    "alias": "italian"
+                }
+            ],
+            "phone": "+18723153912",
+            "rating": 4,
+            "price": "$$",
+            "name": "Animale",
+            "url": "https://www.yelp.com/biz/animale-chicago?adjust_creative=rbUQTMcdLuHbnLUrQJUGJw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=rbUQTMcdLuHbnLUrQJUGJw",
+            "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/6fzprZvQ2O7cj7-ysEe-nw/o.jpg",
+            "review_count": 35
+        },
+        {
+            "location": {
+                "address3": "",
+                "country": "US",
+                "state": "IL",
+                "zip_code": "60647",
+                "city": "Chicago",
+                "address1": "3309 w Fullerton ave",
+                "address2": null
+            },
+            "id": "penumbra-wine-bar-chicago",
+            "coordinates": {
+                "latitude": 41.9243499,
+                "longitude": -87.71089
+            },
+            "categories": [
+                {
+                    "title": "Wine Bars",
+                    "alias": "wine_bars"
+                },
+                {
+                    "title": "Seafood",
+                    "alias": "seafood"
+                },
+                {
+                    "title": "Steakhouses",
+                    "alias": "steak"
+                }
+            ],
+            "phone": "+17737722343",
+            "rating": 5,
+            "price": "$$",
+            "name": "Penumbra Wine Bar",
+            "url": "https://www.yelp.com/biz/penumbra-wine-bar-chicago?adjust_creative=rbUQTMcdLuHbnLUrQJUGJw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=rbUQTMcdLuHbnLUrQJUGJw",
+            "image_url": "https://s3-media1.fl.yelpcdn.com/bphoto/paDsTYW2K-v-Np5egpiY2Q/o.jpg",
+            "review_count": 58
+        }
+    ]
+}
