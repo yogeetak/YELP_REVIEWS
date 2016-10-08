@@ -11,7 +11,7 @@
                 "address1": "2529 N Milwaukee Ave",
                 "address2": ""
             },
-            "id": "the-crab-pad-chicago",
+            "id": "review_count",
             "coordinates": {
                 "latitude": 41.92744,
                 "longitude": -87.70424
