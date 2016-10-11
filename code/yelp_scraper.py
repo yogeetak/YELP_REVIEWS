@@ -1,6 +1,6 @@
-''' TODO: -need to append business id to each review row
-          -write loop for going to next page (want 10 pages per business)
-             --need to check whether each business has at least 10 pages
+''' TODO: None.
+
+    Scripted by: Lara S. Ansari
 '''
 #!/usr/bin/python
 '''import psycopg2 #db interface
@@ -21,26 +21,27 @@ try:
 '''
 
 #SCRAPE DATA
-with open('business_urls_Run1.csv','rU') as readfile:
-  reader = csv.reader(readfile)
+with open('business_urls.csv','rU') as readfile:
+  reader = csv.reader(readfile, delimiter=",")
+  reader.next()
   for row in reader:
     businesses_dict = {} #populate from API
     url_list = []
-    url_list.extend([str(row[2])])
-    businesses_dict.update({str(row[0]):url_list})
+    url_list.extend([row[2]])
+    businesses_dict.update({row[0]:url_list})
+
+writefile = open('reviews_data.csv','wb')
+writer = csv.writer(writefile)
 
 for b_id,urls in businesses_dict.iteritems(): #expand business urls, getting each page of 20 reviews
   urls.extend([urls[0] + '?start=%d' % i for i in range(20,120,20)])
-
-writefile = open('reviews_data.csv', 'wb')
-writer = csv.writer(writefile)
+#  print businesses_dict
 
 #Soup = BeautifulSoup.BeautifulSoup
 
-for business_id,url in businesses_dict.iteritems():
-  for review_page in url:
-    page_html = urllib2.urlopen(url).read()
-    soup = Soup(page_html)
+  for review_page in urls:
+    page_html = urllib2.urlopen(review_page).read()
+    soup = BeautifulSoup(page_html)
 
     if soup.find("div","error-wrap") or not soup.find("div","review review--with-sidebar"): #check if page is valid
       break
@@ -63,7 +64,8 @@ for business_id,url in businesses_dict.iteritems():
       #get user elite status list
       reviews_list = soup.findAll("div",attrs={"itemprop":"review"})
       elite_tags = [tag.find("li","is-elite responsive-small-display-inline-block") for tag in reviews_list]
-      user_elite_statuses = [0 if status == None else 1 for status in elite_tags] #final user_elite_statuses list, elite status = 1, not elite = 0
+      user_elite_statuses_bool = [0 if status == None else 1 for status in elite_tags] 
+      user_elite_statuses = [str(x) for x in user_elite_statuses_bool] #final user_elite_statuses list, elite status = 1, not elite = 0
 
       #get user pics yes/no list
       names_list = soup.findAll("meta",attrs={"itemprop":"author"})
@@ -72,7 +74,8 @@ for business_id,url in businesses_dict.iteritems():
       img_tags_list = [str(anchor_tag.findNext("img",attrs={"alt":name})) for name in names_list_text]
       split_strings = [tag.split('src="')[1] for tag in img_tags_list]
       img_url_list = [tag.split('"') for tag in split_strings]
-      user_has_pics = [0 if string == 'https://s3-media2.fl.yelpcdn.com/assets/srv0/yelp_styleguide/aa0937a60f33/assets/img/default_avatars/user_60_square.png' else 1 for string in split_strings_2] #final user_has_pics list: has photo = 1, no photo = 0
+      user_has_pics_bool = [0 if string == 'https://s3-media2.fl.yelpcdn.com/assets/srv0/yelp_styleguide/aa0937a60f33/assets/img/default_avatars/user_60_square.png' else 1 for string in img_url_list]
+      user_has_pics = [str(x) for x in user_has_pics_bool] #final user_has_pics list: has photo = 1, no photo = 0
     
       #get user friend counts
       friends_tag = soup.findAll("li","friend-count responsive-small-display-inline-block")
@@ -85,7 +88,7 @@ for business_id,url in businesses_dict.iteritems():
   
       #get review ids
       tagged_review_ids = [tag.find("div","data-review-id") for tag in reviews_list]
-      split_review_ids = [str(review).split('data-review-id="'[1] for review in reviews_list)]
+      split_review_ids = [str(review).split('data-review-id="')[1] for review in reviews_list]
       review_ids = [review.split('"')[0] for review in split_review_ids] #final review_ids list
    
       #get review star ratings
@@ -103,13 +106,18 @@ for business_id,url in businesses_dict.iteritems():
       #CONSTRUCT REVIEW ROWS - SEND EACH ROW TO DB
       for i in range(0,19):
         review_data_row = []
-        review_data_row.extend([business_id,user_names[i],user_ids[i],user_cities[i],user_elite_statuses[i],user_has_pics[i],user_friend_counts[i],user_review_counts[i],review_ids[i],review_star_ratings[i],review_dates[i],review_texts[i]])
-        writer.writerow(review_data_row)
+        review_data_row.extend([b_id,user_names[i],user_ids[i],user_cities[i],user_elite_statuses[i],user_has_pics[i],user_friend_counts[i],user_review_counts[i],review_ids[i],review_star_ratings[i],review_dates[i],review_texts[i]])
+        writer.writerow([string.encode('utf-8') for string in review_data_row])
 
 #close the writefile
 writefile.close()
 
-'''    
+
+''' ROW HEADINGS: <Business ID, Username, User ID, User City, Elite Status Y/N?, Has Pic Y/N?, User Friend Count, User Review Count, Review ID, Review Star Rating, Review Date, Review Text>
+
+
+
+
         #SEND DATA TO DB
         cur.execute("CREATE TABLE test_table(Column1 VARCHAR(10), Column2 VARCHAR(10))")
         cur.execute("INSERT INTO test_table VALUES('test1','testing1')")
