@@ -3,13 +3,14 @@
     Scripted by: Lara S. Ansari
 '''
 #!/usr/bin/python
-'''import psycopg2 #db interface
-import sys'''
+#import psycopg2 #db interface
+import sys
 import socket
 import csv
 import urllib2
 from BeautifulSoup import BeautifulSoup
-#from bs4 import BeautifulSoup
+reload(sys)   #Hacky fix: beware--this needs to be investigated further before reusing script!
+sys.setdefaultencoding('utf-8') #Hacky fix
 
 '''
 #CONNECT TO DB---------------------------------------------------
@@ -21,26 +22,38 @@ try:
 '''
 
 #SCRAPE DATA
+businesses_dict = {}
+
 with open('business_urls.csv','rU') as readfile:
-  reader = csv.reader(readfile, delimiter=",")
+  reader = csv.reader(readfile)
   reader.next()
   for row in reader:
-    businesses_dict = {} #populate from API
-    url_list = []
-    url_list.extend([row[2]])
-    businesses_dict.update({row[0]:url_list})
+    businesses_dict[row[0]] = [row[2]]
 
-writefile = open('reviews_data.csv','wb')
+writefile = open('reviews_data.csv','w')
 writer = csv.writer(writefile)
 
-for b_id,urls in businesses_dict.iteritems(): #expand business urls, getting each page of 20 reviews
-  urls.extend([urls[0] + '?start=%d' % i for i in range(20,120,20)])
-#  print businesses_dict
+for b_id in businesses_dict: #expand business urls, getting each page of 20 reviews
+  print b_id
+  businesses_dict[b_id].extend([businesses_dict[b_id][0] + '?start=%d' % i for i in range(20,120,20)])
+  print businesses_dict[b_id]
 
 #Soup = BeautifulSoup.BeautifulSoup
 
-  for review_page in urls:
-    page_html = urllib2.urlopen(review_page).read()
+  for review_page in businesses_dict[b_id]:
+    print review_page
+    try:
+      page_html = urllib2.urlopen(review_page).read()
+    except urllib2.HTTPError, e:
+      checksLogger.error('URLError = ' + str(e.code))
+    except urllib2.URLError, e:
+      checksLogger.error('URLError = ' + str(e.reason))
+    except httplib.HTTPException, e:
+      checksLogger.error('HTTPException')
+    except Exception:
+      import traceback
+      checksLogger.error('generic exception: ' + traceback.format_exc())
+
     soup = BeautifulSoup(page_html)
 
     if soup.find("div","error-wrap") or not soup.find("div","review review--with-sidebar"): #check if page is valid
@@ -50,6 +63,9 @@ for b_id,urls in businesses_dict.iteritems(): #expand business urls, getting eac
       #get user_names list
       names = soup.findAll("meta",attrs={"itemprop":"author"})
       user_names = [name['content'] for name in names] #final user_names list
+
+      #get review count per page
+      review_count = len(user_names)
   
       #get user_ids list
       just_review_uids = soup.findAll("li","user-name")
@@ -67,7 +83,7 @@ for b_id,urls in businesses_dict.iteritems(): #expand business urls, getting eac
       user_elite_statuses_bool = [0 if status == None else 1 for status in elite_tags] 
       user_elite_statuses = [str(x) for x in user_elite_statuses_bool] #final user_elite_statuses list, elite status = 1, not elite = 0
 
-      #get user pics yes/no list
+      #get user pics yes/no list 
       names_list = soup.findAll("meta",attrs={"itemprop":"author"})
       names_list_text = [name['content'] for name in names_list]
       anchor_tag = soup.find("div","review-sidebar")
@@ -104,10 +120,10 @@ for b_id,urls in businesses_dict.iteritems(): #expand business urls, getting eac
       review_texts = [rev.text for rev in bodies_of_reviews] #final list of review text/body
   
       #CONSTRUCT REVIEW ROWS - SEND EACH ROW TO DB
-      for i in range(0,19):
+      for i in range(0,review_count - 1):
         review_data_row = []
         review_data_row.extend([b_id,user_names[i],user_ids[i],user_cities[i],user_elite_statuses[i],user_has_pics[i],user_friend_counts[i],user_review_counts[i],review_ids[i],review_star_ratings[i],review_dates[i],review_texts[i]])
-        writer.writerow([string.encode('utf-8') for string in review_data_row])
+        writer.writerow([string.encode('utf-8','xmlcharrefreplace') for string in review_data_row])
 
 #close the writefile
 writefile.close()
