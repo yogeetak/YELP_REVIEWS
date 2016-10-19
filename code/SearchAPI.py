@@ -13,7 +13,6 @@ import sys
 client = Client(auth)
 page = 0
 business_id_dict={}
-counter=1
 header_row=['business_id','business_name','business_url','business_rating','business_categories','business_locationaddress','business_country','business_city','business_statecode','business_zipcode','business_reviewcount','is_claimed','snippet_text','offset']
  
 with open('business_urls.csv', 'w',encoding='utf8',newline='') as csvfile:  
