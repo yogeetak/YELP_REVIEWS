@@ -23,22 +23,25 @@ try:
 
 #SCRAPE DATA
 businesses_dict = {}
+businesses_count = 0
 
 with open('business_urls.csv','rU') as readfile:
   reader = csv.reader(readfile)
   reader.next()
   for row in reader:
     businesses_dict[row[0]] = [row[2]]
+    businesses_count += 1
 
 writefile = open('reviews_data.csv','w')
 writer = csv.writer(writefile)
 
+businesses_processed_count = 0
+
 for b_id in businesses_dict: #expand business urls, getting each page of 20 reviews
+  print "\n--------------Progress: {0} / {1} businesses scraped.-------------\n".format(businesses_processed_count,businesses_count)
   print b_id
   businesses_dict[b_id].extend([businesses_dict[b_id][0] + '?start=%d' % i for i in range(20,120,20)])
   print businesses_dict[b_id]
-
-#Soup = BeautifulSoup.BeautifulSoup
 
   for review_page in businesses_dict[b_id]:
     print review_page
@@ -78,10 +81,17 @@ for b_id in businesses_dict: #expand business urls, getting each page of 20 revi
       user_cities = [location.text for location in tagged_locations] #final user_cities list
   
       #get user elite status list
-      reviews_list = soup.findAll("div",attrs={"itemprop":"review"})
-      elite_tags = [tag.find("li","is-elite responsive-small-display-inline-block") for tag in reviews_list]
+      reviews_list = soup.findAll("div","review-sidebar-content")
+      reviews_list = reviews_list[1:]
+      elite_tags = [tag.find("li","is-elite responsive-small-display-inline-block") for tag in reviews_list] 
       user_elite_statuses_bool = [0 if status == None else 1 for status in elite_tags] 
       user_elite_statuses = [str(x) for x in user_elite_statuses_bool] #final user_elite_statuses list, elite status = 1, not elite = 0
+
+      #get check-ins
+      review_content_list = soup.findAll("div","review-content")
+      checkins_tags = [tag.find("span","icon icon--18-check-in icon--size-18 u-space-r-half") for tag in review_content_list]
+      user_checkins_bool = [0 if checkin == None else 1 for checkin in checkins_tags] 
+      user_checkins = [str(x) for x in user_checkins_bool] #final user_checkins list
 
       #get user pics yes/no list 
       names_list = soup.findAll("meta",attrs={"itemprop":"author"})
@@ -103,8 +113,9 @@ for b_id in businesses_dict: #expand business urls, getting each page of 20 revi
       user_review_counts = review_counts[1:] #final user_review_counts list
   
       #get review ids
-      tagged_review_ids = [tag.find("div","data-review-id") for tag in reviews_list]
-      split_review_ids = [str(review).split('data-review-id="')[1] for review in reviews_list]
+      reviews_listed = soup.findAll("div","review review--with-sidebar")
+      reviews_listed = reviews_listed[1:]
+      split_review_ids = [str(review).split('data-review-id="')[1] for review in reviews_listed]
       review_ids = [review.split('"')[0] for review in split_review_ids] #final review_ids list
    
       #get review star ratings
@@ -122,14 +133,16 @@ for b_id in businesses_dict: #expand business urls, getting each page of 20 revi
       #CONSTRUCT REVIEW ROWS - SEND EACH ROW TO DB
       for i in range(0,review_count - 1):
         review_data_row = []
-        review_data_row.extend([b_id,user_names[i],user_ids[i],user_cities[i],user_elite_statuses[i],user_has_pics[i],user_friend_counts[i],user_review_counts[i],review_ids[i],review_star_ratings[i],review_dates[i],review_texts[i]])
+        review_data_row.extend([b_id,user_names[i],user_ids[i],user_cities[i],user_elite_statuses[i],user_has_pics[i],user_checkins[i],user_friend_counts[i],user_review_counts[i],review_ids[i],review_star_ratings[i],review_dates[i],review_texts[i]])
         writer.writerow([string.encode('utf-8','xmlcharrefreplace') for string in review_data_row])
+
+  businesses_processed_count += 1
 
 #close the writefile
 writefile.close()
 
 
-''' ROW HEADINGS: <Business ID, Username, User ID, User City, Elite Status Y/N?, Has Pic Y/N?, User Friend Count, User Review Count, Review ID, Review Star Rating, Review Date, Review Text>
+''' ROW HEADINGS: <Business ID, Username, User ID, User City, Elite Status Y/N?, Has Pic Y/N?, Checkins, User Friend Count, User Review Count, Review ID, Review Star Rating, Review Date, Review Text>
 
 
 
