@@ -1,7 +1,3 @@
-''' TODO: None.
-
-    Scripted by: Lara S. Ansari
-'''
 #!/usr/bin/python
 #import psycopg2 #db interface
 import sys
