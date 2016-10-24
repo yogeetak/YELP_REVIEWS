@@ -1,17 +1,27 @@
 #!/usr/bin/env python
+#prune redundant business urls
 
 import csv
 
 bizlist = []
+writefile = open('business_urls.csv','wb')
+writer = csv.writer(writefile)
 
-with open('reviews_data_upto_stella-barra-pizzeria-chicago.csv') as csvfile:
-  readCSV = csv.reader(csvfile)
-  for row in readCSV:
+with open('business_urls_all.csv') as csvfile:
+  readfile = csv.reader(csvfile)
+  readfile.next()
+  for row in readfile:
     business = row[0]
     if business in bizlist:
       continue
     else:
       bizlist.append(row[0])
+      writer.writerow(row)
 
-print bizlist
 print len(bizlist)
+
+writefile.close()
+
+
+
+

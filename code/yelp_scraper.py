@@ -27,7 +27,6 @@ businesses_count = 0
 
 with open('business_urls.csv','rU') as readfile:
   reader = csv.reader(readfile)
-  reader.next()
   for row in reader:
     businesses_dict[row[0]] = [row[2]]
     businesses_count += 1
