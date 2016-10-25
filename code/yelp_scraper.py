@@ -35,7 +35,7 @@ businesses_processed_count = 0
 for b_id in businesses_dict: #expand business urls, getting each page of 20 reviews
   print "\n--------------Progress: {0} / {1} businesses scraped.-------------\n".format(businesses_processed_count,businesses_count)
   print b_id
-  businesses_dict[b_id].extend([businesses_dict[b_id][0] + '?start=%d' % i for i in range(20,120,20)])
+  businesses_dict[b_id].extend([businesses_dict[b_id][0] + '?start=%d' % i for i in range(20,100,20)])
   print businesses_dict[b_id]
 
   for review_page in businesses_dict[b_id]:
