@@ -1,5 +1,6 @@
 #!/usr/bin/python
 #import psycopg2 #db interface
+import numpy
 import sys
 import socket
 import csv
@@ -21,7 +22,7 @@ try:
 businesses_dict = {}
 businesses_count = 0
 
-with open('business_urls.csv','rU') as readfile:
+with open('currently_unscraped_business_urls.csv','rU') as readfile:
   reader = csv.reader(readfile)
   for row in reader:
     businesses_dict[row[0]] = [row[2]]
@@ -129,7 +130,9 @@ for b_id in businesses_dict: #expand business urls, getting each page of 20 revi
       for i in range(0,review_count - 1):
         review_data_row = []
         review_data_row.extend([b_id,user_names[i],user_ids[i],user_cities[i],user_elite_statuses[i],user_has_pics[i],user_checkins[i],user_friend_counts[i],user_review_counts[i],review_ids[i],review_star_ratings[i],review_dates[i],review_texts[i]])
-        writer.writerow([string.encode('utf-8','xmlcharrefreplace') for string in review_data_row])
+        review_data_array = numpy.asarray(review_data_row)
+        writer.writerow(review_data_array)
+#[string.encode('utf-8','xmlcharrefreplace') for string in review_data_row]
 
   businesses_processed_count += 1
 
