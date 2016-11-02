@@ -1,4 +1,6 @@
 import unittest
+import os
+import time
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 xpaths = {
@@ -9,14 +11,16 @@ xpaths = {
 
 class TestOne(unittest.TestCase):
     def setUp(self):
+        print("he")
         os.environ["PATH"] += ":/usr/local/bin"
         desired_capabilities = DesiredCapabilities.FIREFOX.copy()
         desired_capabilities['marionette'] = True
         self.driver = webdriver.Firefox(capabilities=desired_capabilities)
                
-    def login_test(self):
+    def test_login(self):
         print("hello")
         self.driver.get("https://www.yelp.com/login")
+        driver.
         self.assertIn("Log In to Yelp",self.driver.title)
         #Write Username in Username TextBox
         self.driver.find_element_by_xpath(xpaths['email']).send_keys('john.murrayk98@gmail.com')
@@ -33,10 +37,7 @@ class TestOne(unittest.TestCase):
     
        
 if __name__ == '__main__':
-    print("hemml")
     unittest.main()
-    self= setUp();
-    login_test(self);
 
 
 
