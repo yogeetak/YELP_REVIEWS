@@ -22,13 +22,13 @@ try:
 businesses_dict = {}
 businesses_count = 0
 
-with open('currently_unscraped_business_urls.csv','rU') as readfile:
+with open('naperville_to_scrape.csv','rU') as readfile:
   reader = csv.reader(readfile)
   for row in reader:
     businesses_dict[row[0]] = [row[2]]
     businesses_count += 1
 
-writefile = open('reviews_data.csv','w')
+writefile = open('naperville_reviews_data_part1.csv','w')
 writer = csv.writer(writefile)
 
 businesses_processed_count = 0

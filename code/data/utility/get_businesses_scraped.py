@@ -4,18 +4,18 @@
 import csv
 
 bizlist = []
-writefile = open('business_urls_past_88.csv','wb')
+writefile = open('naperville_businesses_scraped_list.csv','wb')
 writer = csv.writer(writefile)
 
-with open('reviews_data_through_88.csv') as csvfile:
+with open('naperville_p1.csv') as csvfile:
   readfile = csv.reader(csvfile)
   for row in readfile:
-    if row[0] not in bizlist:
+    if row[0] in bizlist:
+      continue
+    else:
       print row[0]
       bizlist.append(row[0])
       writer.writerow([''.join(row[0])])
-    else:
-      continue
 
 writefile.close()
 
