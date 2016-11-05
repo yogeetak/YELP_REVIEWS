@@ -1,1 +1,0 @@
-Final_business_urls.csv: Location=chicago, categories=restaurants, Term=restaurants, results: 19600 recordsbusiness_urls_Run1.csv : Location=chicago, categories=restaurants, results: 13000 recordsbusiness_urls_Run2.csv : Location=chicago, categories=restaurants, results: 19000 records
