@@ -4,10 +4,10 @@ import json
 import csv
 import sys
 auth = Oauth1Authenticator(
-    consumer_key= "RvGtzG-WzFOhufGfqqb7lw",
-    consumer_secret="t1RMgbQSEQmZotZDlsgfHrUBDg4",
-    token= "XVqzdbhJ4qxBzQUvUMRYs1p5q5QdZ54x",
-    token_secret= "_dHVkCcc5gerUWGu6faJMyQ-TVs"
+    consumer_key= "",
+    consumer_secret="",
+    token= "",
+    token_secret= "-TVs"
 )
 client = Client(auth)
 page = 0
