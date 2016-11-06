@@ -6,10 +6,17 @@ xpaths = {
            'email':         "//form[@id='ajax-login']/input[@id='email']",
            'password':      "//form[@id='ajax-login']/input[@id='password']",
            'submitButton':  "//form[@id='ajax-login']/button[@type='submit']",
+<<<<<<< Updated upstream:code/Selenium Scripts/selenium_code.py
            'writereviewButton':  "//div[@class='main-content-wrap main-content-wrap--full']/div[@class='top-shelf']/div[@class='content-container']/div[@class='biz-page-header clearfix']/div[@class='biz-page-header-right u-relative']/div[@class='biz-page-actions nowrap']",
            'postreviewbutton' : "//form[@id='review_rate_form']/div[@class='js-war-compose_survey-section ysection']/div/div/div[@class='arrange_unit nowrap']/p/button[@type='submit']"
            }
 ##desired_capabilities = DesiredCapabilities.FIREFOX.copy()
+=======
+           'writereview' :  "//div[@class='main-content-wrap main-content-wrap--full']/div[@class='top-shelf']/div[@class='content-container']/div[@class='biz-page-header clearfix']/div[@class='biz-page-header-right u-relative']/div[@class='biz-page-actions nowrap']",
+           'selectrating':  "//fieldset[@class='star-rating-widget inline-block']/ul[@class='stars-1']/li/input[@id='rating-1']"
+         }
+desired_capabilities = DesiredCapabilities.FIREFOX.copy()
+>>>>>>> Stashed changes:code/selenium_code.py
 os.environ["PATH"] += ":/usr/local/bin"
 
 desired_capabilities['marionette'] = True
@@ -39,9 +46,16 @@ write_box.find_element_by_link_text("Write a Review").click()
 time.sleep(5)
 #assert
 
+<<<<<<< Updated upstream:code/Selenium Scripts/selenium_code.py
 ###TestCase- 3 (Write a Review)
 driver.find_element_by_id('rating-2').click()
 text_area_box=driver.find_element_by_id('review-text').send_keys("The food is great here and we have a lovely time. If you are visitng chicago this place is an absolute must to try!")
 driver.find_element_by_xpath(xpaths['postreviewbutton']).click()
+=======
+###TestCase- 3 (Click on a rating)
+write_box=driver.find_element_by_xpath(xpaths['selectrating']).click()
+
+
+>>>>>>> Stashed changes:code/selenium_code.py
 time.sleep(10)
 driver.quit()
