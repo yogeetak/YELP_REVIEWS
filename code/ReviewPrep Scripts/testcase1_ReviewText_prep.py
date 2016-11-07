@@ -16,13 +16,15 @@ final_dict={}
 header_row=['business_id','business_url','review_rating','formed_review_text']
 
 ##Creating a dictionary with all Business ID and URLS
-with open('/Users/apple/Desktop/YELP_REVIEWS/SearchAPI results/chicago.csv', 'r',encoding='utf8',newline='') as csvfile:
+##with open('/Users/apple/Desktop/YELP_REVIEWS/SearchAPI results/chicago.csv', 'r',encoding='utf8',newline='') as csvfile:
+with open('C://Users//ykutta2//Desktop//YELP_REVIEWS//SearchAPI results//chicago.csv', 'r',encoding='utf8',newline='') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         business_url_info[row['business_id']]=row['business_url']
 
 ##Reading from scrapped reviews, for each business id collecting all possible (Rating ,##, Review_text)
-with open('//Users//apple//Desktop//YELP_REVIEWS//code//data//ready_data//CHICAGO_part1.csv', 'r',encoding='utf8',newline='') as csvreaderfile:
+##with open('//Users//apple//Desktop//YELP_REVIEWS//code//data//ready_data//CHICAGO_part1.csv', 'r',encoding='utf8',newline='') as csvreaderfile:
+with open('C://Users//ykutta2//Desktop//YELP_REVIEWS//code//data//ready_data//CHICAGO_part1.csv', 'r',encoding='utf8',newline='') as csvreaderfile:
     reader = csv.DictReader(csvreaderfile)
     
     for row in reader:
@@ -40,7 +42,6 @@ with open('testcase1_ChicagoPart1_ReviewText_Data.csv', 'w',encoding='utf8',newl
         writer.writerow(header_row)
 
         for bid in final_dict:
-            
             if(bid in business_url_info): business_url=business_url_info[bid]   ##If Valid URL exists, then proceed
             else: continue
 
@@ -61,9 +62,13 @@ with open('testcase1_ChicagoPart1_ReviewText_Data.csv', 'w',encoding='utf8',newl
                 if("." in actual_review_text):
                     split_review_text=actual_review_text.split('.')   ##Splitting the text with fulllstops and taking a random index of the sentence
                     randno=randrange(0,len(split_review_text))
-                    final_review_text=final_review_text.strip()+"."+split_review_text[randno].lstrip()[0:].capitalize()
+                    selected_sent=split_review_text[randno]
+                    if(selected_sent == ''):
+                        randno=randrange(0,len(split_review_text))
+                        selected_sent=split_review_text[randno]
+                    final_review_text=final_review_text.strip()+"."+selected_sent.lstrip()[0:].capitalize()
                 elif(len(actual_review_text) <= 500):
-                    final_review_text=actual_review_text.lstrip()[0:].capitalize()+"."
+                    final_review_text=final_review_text+actual_review_text.lstrip()[0:].capitalize()+"."
             
             if(final_review_text==''):
                 continue

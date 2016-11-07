@@ -9,12 +9,14 @@ business_url_info={} ##Dictionary of Business Names and URL's
 final_dict={}
 header_row=['business_id','business_url','review_posted_date','review_rating','formed_review_text']
 
-with open('/Users/apple/Desktop/YELP_REVIEWS/SearchAPI results/chicago.csv', 'r',encoding='utf8',newline='') as csvfile:
+##with open('/Users/apple/Desktop/YELP_REVIEWS/SearchAPI results/chicago.csv', 'r',encoding='utf8',newline='') as csvfile:
+with open('C://Users//ykutta2//Desktop//YELP_REVIEWS//SearchAPI results//chicago.csv', 'r',encoding='utf8',newline='') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         business_url_info[row['business_id']]=row['business_url']
    
-with open('//Users//apple//Desktop//YELP_REVIEWS//code//data//ready_data//CHICAGO_part2.csv', 'r',encoding='utf8',newline='') as csvreaderfile:
+##with open('//Users//apple//Desktop//YELP_REVIEWS//code//data//ready_data//CHICAGO_part2.csv', 'r',encoding='utf8',newline='') as csvreaderfile:
+with open('C://Users//ykutta2//Desktop//YELP_REVIEWS//code//data//ready_data//CHICAGO_part1.csv', 'r',encoding='utf8',newline='') as csvreaderfile:
     reader = csv.DictReader(csvreaderfile)
     lowest_date_val=datetime.strptime('31/12/14', '%d/%m/%y').date()
     business_id=0
@@ -44,7 +46,7 @@ with open('//Users//apple//Desktop//YELP_REVIEWS//code//data//ready_data//CHICAG
                 final_dict[row['business_id']] = [lowest_date_val.strftime('%m/%d/%y') +" ,##, "+row['star_rating']+" ,##, "+row['review_text']]
                    
     
-with open('testcase8_ChicagoPart2_ReviewText_Data.csv', 'w',encoding='utf8',newline='') as csvwriterfile:
+with open('testcase8_ChicagoPart1_ReviewText_Data.csv', 'w',encoding='utf8',newline='') as csvwriterfile:
     writer = csv.writer(csvwriterfile, dialect='excel')
     writer.writerow(header_row)
     for bid in final_dict:

@@ -14,12 +14,14 @@ business_url_info={} ##Dictionary of Business Names and URL's
 final_dict={}
 header_row=['business_id','business_url','review_rating','formed_review_text']
 
-with open('/Users/apple/Desktop/YELP_REVIEWS/SearchAPI results/chicago.csv', 'r',encoding='utf8',newline='') as csvfile:
+##with open('/Users/apple/Desktop/YELP_REVIEWS/SearchAPI results/chicago.csv', 'r',encoding='utf8',newline='') as csvfile:
+with open('C://Users//ykutta2//Desktop//YELP_REVIEWS//SearchAPI results//chicago.csv', 'r',encoding='utf8',newline='') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         business_url_info[row['business_id']]=row['business_url']
    
-with open('//Users//apple//Desktop//YELP_REVIEWS//code//data//ready_data//CHICAGO_part1.csv', 'r',encoding='utf8',newline='') as csvreaderfile:
+##with open('//Users//apple//Desktop//YELP_REVIEWS//code//data//ready_data//CHICAGO_part1.csv', 'r',encoding='utf8',newline='') as csvreaderfile:
+with open('C://Users//ykutta2//Desktop//YELP_REVIEWS//code//data//ready_data//CHICAGO_part2.csv', 'r',encoding='utf8',newline='') as csvreaderfile:
     reader = csv.DictReader(csvreaderfile)
     
     for row in reader:
@@ -31,7 +33,7 @@ with open('//Users//apple//Desktop//YELP_REVIEWS//code//data//ready_data//CHICAG
                 original_list.append(row['star_rating']+" ,##,  "+row['review_text'])
                 final_dict[row['business_id']] = original_list
  
-with open('testcase4_ChicagoPart1_ReviewText_Data.csv', 'w',encoding='utf8',newline='') as csvwriterfile:
+with open('testcase4_ChicagoPart2_ReviewText_Data.csv', 'w',encoding='utf8',newline='') as csvwriterfile:
         writer = csv.writer(csvwriterfile, dialect='excel')
         writer.writerow(header_row)
 
@@ -43,14 +45,22 @@ with open('testcase4_ChicagoPart1_ReviewText_Data.csv', 'w',encoding='utf8',newl
             actual_review_text=''
             final_review_text=''
             review_list=final_dict[bid]
-            sample_review_list=random.sample(review_list,len(review_list)) ##choose random sample of reviews for each business
-
+            
+            if(len(review_list) > 10):
+                sample_review_list=random.sample(review_list,10)  ##Taking a random sample of 10 reviews from each business id
+            else:
+                sample_review_list=random.sample(review_list,len(review_list))
+           
             for text in sample_review_list:
                 actual_review_text=text.split(',##,')[1]
                 if("." in actual_review_text):
                     split_review_text=actual_review_text.split('.')   ##Splitting the text with fulllstops and taking a random index of the sentence\
                     randno=randrange(0,len(split_review_text))
-                    final_review_text=final_review_text.strip()+"."+split_review_text[randno].lstrip()[0:].capitalize()
+                    selected_sent=split_review_text[randno]
+                    final_review_text=final_review_text.strip()+"."+selected_sent.lstrip()[0:].capitalize()
+
+                elif(len(actual_review_text) <= 500):
+                    final_review_text=final_review_text+actual_review_text.lstrip()[0:].capitalize()+"."
 
             if(final_review_text==''):
                 continue
