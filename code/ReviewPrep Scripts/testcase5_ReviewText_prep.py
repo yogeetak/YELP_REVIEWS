@@ -14,14 +14,14 @@ business_url_info={} ##Dictionary of Business Names and URL's
 final_dict={}
 header_row=['business_id','business_url','review_rating','formed_review_text']
 
-##with open('/Users/apple/Desktop/YELP_REVIEWS/SearchAPI results/chicago.csv', 'r',encoding='utf8',newline='') as csvfile:
-with open('C://Users//ykutta2//Desktop//YELP_REVIEWS//SearchAPI results//chicago.csv', 'r',encoding='utf8',newline='') as csvfile:
+with open('/Users/apple/Desktop/YELP_REVIEWS/SearchAPI results/chicago.csv', 'r',encoding='utf8',newline='') as csvfile:
+##with open('C://Users//ykutta2//Desktop//YELP_REVIEWS//SearchAPI results//chicago.csv', 'r',encoding='utf8',newline='') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         business_url_info[row['business_id']]=row['business_url']
    
-##with open('//Users//apple//Desktop//YELP_REVIEWS//code//data//ready_data//CHICAGO_part1.csv', 'r',encoding='utf8',newline='') as csvreaderfile:
-with open('C://Users//ykutta2//Desktop//YELP_REVIEWS//code//data//ready_data//CHICAGO_part2.csv', 'r',encoding='utf8',newline='') as csvreaderfile:
+with open('//Users//apple//Desktop//YELP_REVIEWS//code//data//ready_data//CHICAGO_part2.csv', 'r',encoding='utf8',newline='') as csvreaderfile:
+##with open('C://Users//ykutta2//Desktop//YELP_REVIEWS//code//data//ready_data//CHICAGO_part2.csv', 'r',encoding='utf8',newline='') as csvreaderfile:
     reader = csv.DictReader(csvreaderfile)
     
     for row in reader:
@@ -72,6 +72,19 @@ with open('testcase5_ChicagoPart2_ReviewText_Data.csv', 'w',encoding='utf8',newl
             final_review_rating= randrange(3,6)
             final_review_text=final_review_text.lstrip('.')+"."
             final_review_text=final_review_text.lstrip()[0:].capitalize()
+            
+            if("&#34;" in  final_review_text):
+                final_review_text=final_review_text.replace("&#34;","'")
+            if("&#39;" in  final_review_text):
+                final_review_text=final_review_text.replace("&#39;","'")
+            if("&amp;" in final_review_text):
+                final_review_text=final_review_text.replace("&amp;","&")
 
-            temp_row=[bid,business_url,final_review_rating,final_review_text]
+            final_text=''
+            sentences=final_review_text.split(".")
+            for i in sentences:
+                final_text=final_text +"." +i.capitalize()
+            final_text=final_text.lstrip(".")+"." 
+
+            temp_row=[bid,business_url,final_review_rating,final_text]
             writer.writerow(temp_row);

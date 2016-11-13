@@ -9,14 +9,14 @@ business_url_info={} ##Dictionary of Business Names and URL's
 final_dict={}
 header_row=['business_id','business_url','review_posted_date','review_rating','formed_review_text']
 
-##with open('/Users/apple/Desktop/YELP_REVIEWS/SearchAPI results/chicago.csv', 'r',encoding='utf8',newline='') as csvfile:
-with open('C://Users//ykutta2//Desktop//YELP_REVIEWS//SearchAPI results//chicago.csv', 'r',encoding='utf8',newline='') as csvfile:
+with open('/Users/apple/Desktop/YELP_REVIEWS/SearchAPI results/chicago.csv', 'r',encoding='utf8',newline='') as csvfile:
+##with open('C://Users//ykutta2//Desktop//YELP_REVIEWS//SearchAPI results//chicago.csv', 'r',encoding='utf8',newline='') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         business_url_info[row['business_id']]=row['business_url']
    
-##with open('//Users//apple//Desktop//YELP_REVIEWS//code//data//ready_data//CHICAGO_part2.csv', 'r',encoding='utf8',newline='') as csvreaderfile:
-with open('C://Users//ykutta2//Desktop//YELP_REVIEWS//code//data//ready_data//CHICAGO_part1.csv', 'r',encoding='utf8',newline='') as csvreaderfile:
+with open('//Users//apple//Desktop//YELP_REVIEWS//code//data//ready_data//CHICAGO_part2.csv', 'r',encoding='utf8',newline='') as csvreaderfile:
+##with open('C://Users//ykutta2//Desktop//YELP_REVIEWS//code//data//ready_data//CHICAGO_part1.csv', 'r',encoding='utf8',newline='') as csvreaderfile:
     reader = csv.DictReader(csvreaderfile)
     lowest_date_val=datetime.strptime('31/12/14', '%d/%m/%y').date()
     business_id=0
@@ -46,7 +46,7 @@ with open('C://Users//ykutta2//Desktop//YELP_REVIEWS//code//data//ready_data//CH
                 final_dict[row['business_id']] = [lowest_date_val.strftime('%m/%d/%y') +" ,##, "+row['star_rating']+" ,##, "+row['review_text']]
                    
     
-with open('testcase8_ChicagoPart1_ReviewText_Data.csv', 'w',encoding='utf8',newline='') as csvwriterfile:
+with open('testcase8_ChicagoPart2_ReviewText_Data.csv', 'w',encoding='utf8',newline='') as csvwriterfile:
     writer = csv.writer(csvwriterfile, dialect='excel')
     writer.writerow(header_row)
     for bid in final_dict:
@@ -54,5 +54,13 @@ with open('testcase8_ChicagoPart1_ReviewText_Data.csv', 'w',encoding='utf8',newl
         else: continue
         sample_review_list=final_dict[bid]
         for text in sample_review_list:
-            temp_row=[bid,business_url,text.split(',##,')[0],text.split(',##,')[1],text.split(',##,')[2]]
+            final_review_text=text.split(',##,')[2]
+            if("&#34;" in  final_review_text):
+                final_review_text=final_review_text.replace("&#34;","'")
+            if("&#39;" in  final_review_text):
+                final_review_text=final_review_text.replace("&#39;","'")
+            if("&amp;" in final_review_text):
+                final_review_text=final_review_text.replace("&amp;","&")
+            
+            temp_row=[bid,business_url,text.split(',##,')[0],text.split(',##,')[1],final_review_text]
             writer.writerow(temp_row);

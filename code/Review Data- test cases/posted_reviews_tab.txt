@@ -1,0 +1,23 @@
+Date: November 13
+
+User: john.murrayk98@gmail.com
+Posted Test Case: TestCase 4 - Positive Reviews with less star
+
+Businesses:
+
+https://www.yelp.com/biz/kurah-mediterranean-chicago-2https://www.yelp.com/biz/bar-marta-chicagohttps://www.yelp.com/biz/benjyehuda-chicagohttps://www.yelp.com/biz/bree-thai-restaurant-chicago
+https://www.yelp.com/biz/tortoise-supper-club-chicago-2
+
+
+Test Case: General Common Review
+https://www.yelp.com/biz/girl-and-the-goat-chicago
+
+
+Test Case: TestCase 8 - Oldest Elite Review with positive rating
+https://www.yelp.com/biz/currency-exchange-cafe-chicago-2
+https://www.yelp.com/biz/half-shell-chicago
+https://www.yelp.com/biz/la-catedral-cafe-and-restaurant-chicago-2
+https://www.yelp.com/biz/cafe-53-chicago
+
+Test Case: TestCase 9 - Oldest Elite Review with Negative rating
+https://www.yelp.com/biz/pizzeria-del-mercato-chicago

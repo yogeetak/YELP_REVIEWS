@@ -1,12 +1,20 @@
 import csv
-
-with open('C:/Users/ykutta2/Desktop/YELP_REVIEWS/code/Review Data- test cases/TestCase5- Negative Reviews with more stars/testcase5_ChicagoPart1_ReviewText_Data.csv', 'r',encoding='utf8',newline='') as csvfile:
+with open('//Users//apple//Desktop//YELP_REVIEWS//code//Review Data- test cases//TestCase4- Positive Reviews with less star//testcase4_ChicagoPart1_ReviewText_Data.csv', 'r',encoding='utf8') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         review_text=row['formed_review_text']
-        char_count=len(review_text)
-        if(char_count >=2000 or char_count <= 350):
-            print(row['business_id'])
-            print(review_text)
-            print(char_count)
-            print()
+        print(review_text)
+        print()
+        if("&#34;" in  review_text):
+            review_text=review_text.replace("&#34;","'")
+        if("&#39;" in  review_text):
+            review_text=review_text.replace("&#39;","'")
+
+        sentences=review_text.split(".")
+        final_text=''
+        for i in sentences:
+            final_text=final_text +"." +i.capitalize()
+        final_text=final_text.lstrip(".")+"."    
+        print(final_text)
+        print()
+            
