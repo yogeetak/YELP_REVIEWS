@@ -1,6 +1,7 @@
 Date: November 13
 
 User: john.murrayk98@gmail.com
+Time: 9AM
 Posted Test Case: TestCase 4 - Positive Reviews with less star
 
 Businesses:
@@ -21,3 +22,18 @@ https://www.yelp.com/biz/cafe-53-chicago
 
 Test Case: TestCase 9 - Oldest Elite Review with Negative rating
 https://www.yelp.com/biz/pizzeria-del-mercato-chicago
+
+
+User: murray.ptr12@gmail.com
+Posted Test Case 10 - Chinese Category reviews
+Time: 2:15PM
+
+https://www.yelp.com/biz/mos-asian-bistro-chicago
+https://www.yelp.com/biz/wow-bao-chicago-5
+https://www.yelp.com/biz/youngs-chinese-restaurant-chicago
+
+Posted Test Case: TestCase 4 - Positive Reviews with less star
+https://www.yelp.com/biz/tuscany-restaurant-chicago
+https://www.yelp.com/biz/lyfe-kitchen-chicago-2
+
+
