@@ -10,7 +10,7 @@ https://www.yelp.com/biz/kurah-mediterranean-chicago-2https://www.yelp.com/biz/
 https://www.yelp.com/biz/tortoise-supper-club-chicago-2
 
 
-Test Case: General Common Review
+Test Case: General Common Review (11/1/2016)
 https://www.yelp.com/biz/girl-and-the-goat-chicago
 
 
@@ -36,4 +36,30 @@ Posted Test Case: TestCase 4 - Positive Reviews with less star
 https://www.yelp.com/biz/tuscany-restaurant-chicago
 https://www.yelp.com/biz/lyfe-kitchen-chicago-2
 
+After 24 hours checked: All reviews still remain
+Screenshots in posting1 folder
 
+
+Date:Nov 14
+User: calvin.moses@yahoo.com
+Posted Time: 10:30PM
+Posted Test Case 10 - Chinese Category reviews
+
+https://www.yelp.com/biz/dim-sum-house-chicagohttps://www.yelp.com/biz/mak-restaurant-chicagohttps://www.yelp.com/biz/hong-huah-chicagohttps://www.yelp.com/biz/new-china-tea-chicago
+
+
+Test Case: TestCase 4 - Positive Reviews with less star
+
+https://www.yelp.com/biz/batter-and-berries-chicagohttps://www.yelp.com/biz/river-roast-chicago-3https://www.yelp.com/biz/guss-world-famous-fried-chicken-chicagohttps://www.yelp.com/biz/philly-bros-chicago
+
+TestCase 9 - Oldest Elite Review with Negative rating
+
+https://www.yelp.com/biz/dunlays-on-clark-chicagohttps://www.yelp.com/biz/the-glunz-tavern-chicago
+
+
+User-cs441.ksharma@gmail.com
+
+https://www.yelp.com/biz/calumet-fisheries-chicago-4https://www.yelp.com/biz/dosirak-chicagohttps://www.yelp.com/biz/old-town-social-chicagohttps://www.yelp.com/biz/county-barbeque-chicagohttps://www.yelp.com/biz/rivers-chicago
+
+User: ykutta2@uic.edu
+https://www.yelp.com/biz/fat-rice-chicagohttps://www.yelp.com/biz/vora-chicagohttps://www.yelp.com/biz/de-rice-chicagohttps://www.yelp.com/biz/friendship-chinese-restaurant-chicagohttps://www.yelp.com/biz/min-min-asian-cafe-chicago
