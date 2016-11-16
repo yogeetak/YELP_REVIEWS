@@ -4,10 +4,10 @@
 import csv
 
 bizlist = []
-writefile = open('naperville_businesses_scraped_list.csv','wb')
+writefile = open('naperville_scraped_businesses_list.csv','wb')
 writer = csv.writer(writefile)
 
-with open('naperville_p1.csv') as csvfile:
+with open('naperville_reviews_data_part2.csv') as csvfile:
   readfile = csv.reader(csvfile)
   for row in readfile:
     if row[0] in bizlist:

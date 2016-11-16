@@ -9,7 +9,7 @@ bizlist = []
 writefile = open('naperville_to_scrape.csv','wb')
 writer = csv.writer(writefile)
 
-with open('naperville_businesses_scraped_list.csv') as csvfile:
+with open('naperville_scraped_businesses_list.csv') as csvfile:
   readfile1 = csv.reader(csvfile)
   for row in readfile1:
     bizname = row

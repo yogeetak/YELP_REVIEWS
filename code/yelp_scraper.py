@@ -28,7 +28,7 @@ with open('naperville_to_scrape.csv','rU') as readfile:
     businesses_dict[row[0]] = [row[2]]
     businesses_count += 1
 
-writefile = open('naperville_reviews_data_part1.csv','w')
+writefile = open('naperville_reviews_data_part11.csv','w')
 writer = csv.writer(writefile)
 
 businesses_processed_count = 0
@@ -115,8 +115,9 @@ for b_id in businesses_dict: #expand business urls, getting each page of 20 revi
       review_ids = [review.split('"')[0] for review in split_review_ids] #final review_ids list
    
       #get review star ratings
-      ratings = soup.findAll("meta",attrs={"itemprop":"ratingValue"})
-      review_star_ratings = [rated['content'] for rated in ratings] #final star rating list
+      reviews_content_list = soup.findAll("div",attrs={"itemprop":"review"})
+      ratings_list = [tag.find("meta",attrs={"itemprop":"ratingValue"}) for tag in reviews_content_list]
+      review_star_ratings = [rated['content'] for rated in ratings_list] #final star rating list
   
       #get review_dates list
       dates_list = soup.findAll("meta",attrs={"itemprop":"datePublished"})
