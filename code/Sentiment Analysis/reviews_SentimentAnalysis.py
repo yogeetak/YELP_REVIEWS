@@ -29,19 +29,34 @@ def main():
         reader = csv.DictReader(csvreaderfile)
         i=0
         for row in reader:
+            cal_sentiment='undefined'
+            pos_word_count=0
+            neg_word_count=0
             i=i+1
             review_rating=row['star_rating']
             business_id=row['business_id']
             ##Processing the text
             processed_review_text=text_processing(row['review_text'])
     
-##            print(row['review_text'])
-##            print("&&&&&&&&&&&&&&&&&")
-##            print(processed_review_text)
-##            print()
-##
-##            final_list.append(business_id+" ,##, "+ review_rating +" ,##, "+ processed_review_text)
+            ##calculating scores:
+            for word in processed_review_text.split(''):
+                if(word in pos_words):
+                    pos_word_count=pos_word_count+1
+                    continue
+                if(word in new_words):
+                    neg_word_count=neg_word_count+1
+                    continue
+                
+            if(pos_word_count > neg_word_count):
+                cal_sentiment='positive'
+            elif(pos_word_count < neg_word_count):
+                cal_sentiment='negative'
+            elif(pos_word_count == neg_word_count):
+                 cal_sentiment='neutral'
+                
             
+            final_list.append(business_id+" ,##, "+ review_rating +" ,##, "+ processed_review_text + ",##,"+cal_sentiment)
+    
 
 def text_processing(text):
     words=[]
@@ -83,6 +98,9 @@ def text_processing(text):
 
 if __name__ == '__main__':
     main()
+    for i in final_list:
+        print(i)
+        print()
     
 ##with open('testcase1_ChicagoPart1_ReviewText_Data.csv', 'w',encoding='utf8',newline='') as csvwriterfile:
 ##        writer = csv.writer(csvwriterfile, dialect='excel')
