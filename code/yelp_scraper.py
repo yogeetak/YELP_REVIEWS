@@ -22,7 +22,7 @@ try:
 businesses_dict = {}
 businesses_count = 0
 
-with open('naperville_to_scrape.csv','rU') as readfile:
+with open('naperville.csv','rU') as readfile:
   reader = csv.reader(readfile)
   for row in reader:
     businesses_dict[row[0]] = [row[2]]
