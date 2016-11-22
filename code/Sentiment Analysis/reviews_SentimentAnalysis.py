@@ -1,7 +1,7 @@
 ##Sentiment Analysis of reviews text - Using Bing Lus Dictionary of positive and negative words
 ##http://www.slideshare.net/mcjenkins/how-sentiment-analysis-works?next_slideshow=1
 ##NLTK sentiment analysizer package
-
+##http://stackoverflow.com/questions/32879532/stanford-nlp-for-python
 import csv
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
@@ -39,11 +39,11 @@ def main():
             processed_review_text=text_processing(row['review_text'])
     
             ##calculating scores:
-            for word in processed_review_text.split(''):
+            for word in processed_review_text.split(' '):
                 if(word in pos_words):
                     pos_word_count=pos_word_count+1
                     continue
-                if(word in new_words):
+                if(word in neg_words):
                     neg_word_count=neg_word_count+1
                     continue
                 
