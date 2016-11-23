@@ -1,68 +1,124 @@
-##Sentiment Analysis of reviews text - Using Bing Lus Dictionary of positive and negative words
-##http://www.slideshare.net/mcjenkins/how-sentiment-analysis-works?next_slideshow=1
-##NLTK sentiment analysizer package
-##http://stackoverflow.com/questions/32879532/stanford-nlp-for-python
+##Sentiment Analysis of reviews text - Using AFINN Dictionary of positive and negative words
+##Sentiment Analysis of reviews text - Using Valder Sentiment Analyzer of NLTK library
+
 import csv
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-from nltk.stem.snowball import SnowballStemmer
+from itertools import chain
+from nltk.corpus import wordnet
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from nltk.sentiment.util import *
+from nltk.tokenize import sent_tokenize
+import math
 import re
 import string
 
 affin={}
-header_row=['business_id','total_words','review_rating','affin_word_score','cal_sentiment_rating','final_review_text']
+header_row=['business_id','username','user_id','review_id','review_text','total_words','review_rating','cal_affin_rating',
+            'cal_valder_rating','affin_word_score','cal_valder_compound','cal_valder_pos','cal_valder_neg','cal_valder_neu',"need_inspection"]
+
 filenameAFINN="C:/Users/ykutta2/Desktop/YELP_REVIEWS/code/Sentiment Analysis/opinion-lexicon-English/AFINN-111.txt"
+add_filename="C:/Users/ykutta2/Desktop/YELP_REVIEWS/code/Sentiment Analysis/opinion-lexicon-English/additional_words.txt"
 def main():
-    
     afinnfile = open(filenameAFINN)
     scores = {} # initialize an empty dictionary
     for line in afinnfile:
-      term, score  = line.split("\t")  # The file is tab-delimited. "\t" means "tab character"
-      affin[term] = int(score)  # Convert the score to an integer.
+        term, score  = line.split("\t")  # The file is tab-delimited. "\t" means "tab character"
+        affin[term] = int(score)  # Convert the score to an integer.
 
-    
+    ##adding addtional terms to afinn_dict
+    add_file = open(add_filename)
+    scores = {} # initialize an empty dictionary
+    for line in add_file:
+        term, score  = line.split("\t")  # The file is tab-delimited. "\t" means "tab character"
+        affin[term] = int(score)  # Convert the score to an integer.
+  
+
     ##Reading from scrapped reviews, for each business id collecting all possible Review_text
+    sid = SentimentIntensityAnalyzer()
     with open('chicago_reviews_part1.csv', 'r',encoding='ISO-8859-1',newline='') as csvreaderfile:
         reader = csv.DictReader(csvreaderfile)
         with open('chicago_reviews_part1_dictsentiment_Data.csv', 'w',encoding='ISO-8859-1',newline='') as csvwriterfile:
             writer = csv.writer(csvwriterfile, dialect='excel')
             writer.writerow(header_row)
-            
-            i=0
+        
             for row in reader:
-                pos_word_count=0
-                neg_word_count=0
-                word_score=0
-                i=i+1
+                affin_word_score=0
+                pos_score=0.0
+                neg_score=0.0
+                neu_score=0.0
+                compound_score=0.0
                 review_rating=row['star_rating']
                 business_id=row['business_id']
-                ##Processing the text
-                processed_review_text=text_processing(row['review_text'])
-    
-                ##calculating scores:
-                for word in processed_review_text.split(' '):
-                    if(word in affin.keys()):
-                        word_score=word_score+affin[word]
+                need_inspection="No"
+                ##Processing the text for affin analysis
+                affin_processed_review_text=affin_text_processing(row['review_text'])
 
-                if(word_score <= 10):
+                ##Processing the text for valder sent analysis
+                senti_processed_review_text=senti_text_processing(row['review_text'])
+
+                ##Calculating Valder Sentiment Scores
+                lines_list = sent_tokenize(senti_processed_review_text)
+               
+                for sentence in lines_list:
+                    ss = sid.polarity_scores(sentence)
+                    pos_score=pos_score + ss['pos']
+                    neg_score=neg_score + ss['neg']
+                    neu_score=neu_score + ss['neu']
+                    compound_score=compound_score + ss['compound']
+
+                ##Ceiling compound score
+                valder_senti_score=math.ceil(compound_score)
+                if(valder_senti_score > 5):
+                    valder_senti_score=5
+    
+                ##Calculating affin scores:
+                for word in affin_processed_review_text.split(' '):
+                    if(word in affin.keys()):
+                        affin_word_score=affin_word_score + affin[word]
+                    else:
+                        synonyms = wordnet.synsets(word)
+                        lemmas = set(chain.from_iterable([word.lemma_names() for word in synonyms]))
+                        for syn_word in lemmas:
+                            if(syn_word in affin.keys()):
+                                affin_word_score=affin_word_score + affin[syn_word]
+                        
+
+                if(affin_word_score <= 10):                                     ## IF affin_word_score < 10 (negative, low rating) then rating=1
                     cal_sentiment_score= 1
-                elif(word_score > 10 and word_score <=50 ):
+                    
+                elif(affin_word_score > 10 and affin_word_score <=50 ):         ## IF affin_word_score [10,50] range then rating=2
                     cal_sentiment_score= 2
-                elif(word_score > 50 and word_score <= 100 ):
+                    
+                elif(affin_word_score > 50 and affin_word_score <= 100 ):       ## IF affin_word_score [50,100] range then rating=3
                     cal_sentiment_score= 3
-                elif(word_score > 100 and word_score <= 130):
+                    
+                elif(affin_word_score > 100 and affin_word_score <= 130):       ## IF affin_word_score [100,130] range then rating=4
                     cal_sentiment_score= 4
-                elif(word_score > 130):
+                    
+                elif(affin_word_score > 130):                                   ## IF affin_word_score > 130 range then rating=5
                     cal_sentiment_score= 5
                                
 
-                total_words=len(processed_review_text.split(' '))
-                temp_row=[business_id,total_words,review_rating,word_score,cal_sentiment_score,row['review_text']]
+                total_words=len(affin_processed_review_text.split(' '))
+
+                if((abs(int(review_rating) - valder_senti_score) > 3) and (abs(int(review_rating) - cal_sentiment_score) > 3)):
+                    need_inspection="YES"
+                
+                temp_row=[business_id,row['username'],row['user_id'],row['review_id'],row['review_text'],total_words,review_rating,cal_sentiment_score,
+                          valder_senti_score,affin_word_score,compound_score,pos_score,neg_score,neu_score,need_inspection]
                 writer.writerow(temp_row);
             
-def text_processing(text):
+def affin_text_processing(text):
     words=[]
-    text=text.strip().lower()                      #remove trailing spaces
+    text=text.strip().lower()
+    if("&#34;" in  text):
+        text=text.replace("&#34;","'")
+    if("&#39;" in  text):
+        text=text.replace("&#39;","'")
+    if("&amp;" in  text):
+        text=text.replace("&amp;","&")
+        
     text = re.sub("\d", '', text)                  #remove digits
     text = re.sub(r'\-', ' ', text)                #replace - with white space
     text = re.sub(r'\'m', ' am', text)             #replace apostrophe m ('m) with am
@@ -71,32 +127,29 @@ def text_processing(text):
     text = re.sub(r'n\'t', ' not', text)           #replace apostrophe t ('nt) with not
     text = re.sub(r'\'ll', ' will', text)          #replace apostrophe ll ('ll) with will
     text = re.sub(r'\&', 'and', text)              #replace & with and
-    text = re.sub(r'didnt ', 'did not', text)      #replace didnt  with did not
-    text = re.sub(r'dont', 'do not', text)         #replace dont with do not
-    text = re.sub(r'wont', 'will not', text)       #replace wont with will not
-    text = re.sub(r'cant', 'can not', text)        #replace cant with can not 
-    text = re.sub(r'wouldnt', 'would not', text)   #replace wouldnt with would not
-    text = re.sub(r'couldnt', 'could not', text)   #replace couldnt with could not
-    text = re.sub(r'isnt', 'is not', text)         #replace isnt with is not
-    text = re.sub(r'wasnt', 'was not', text)       #replace wasnt with was not
     text = re.sub(r'\'s', ' ', text)               #replacing any apostrphe ('s) with empty space
 
-
-     ##Stop Words,Punctuation and Stemming
+    ##Stop Words removal
     stop_words=set(stopwords.words('english'))
-    PUNCTUATION = set(string.punctuation)
- 
-    
     token_words=word_tokenize(text)
     filtered_review=[w for w in token_words if not w in stop_words]
     for word in filtered_review:
-        punct_removed = ''.join([letter for letter in word if not letter in PUNCTUATION])  
-        words.append(str(punct_removed))
+        words.append(word)
     text = ' '.join(words)
     return text
     
+def senti_text_processing(text):
+    words=[]
+    text=text.strip().lower()
+    if("&#34;" in  text):
+        text=text.replace("&#34;","'")
+    if("&#39;" in  text):
+        text=text.replace("&#39;","'")
+    if("&amp;" in  text):
+        text=text.replace("&amp;","&")
+    return text
 
-
+    
 if __name__ == '__main__':
     main()
     
