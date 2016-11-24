@@ -14,20 +14,20 @@ import re
 import string
 
 affin={}
-header_row=['business_id','username','user_id','review_id','review_text','total_words','review_rating','cal_affin_rating',
-            'cal_valder_rating','affin_word_score','cal_valder_compound','cal_valder_pos','cal_valder_neg','cal_valder_neu',"need_inspection"]
+header_row=['business_id','username','user_id','review_id','review_text','review_date','total_words','review_rating','cal_affin_rating',
+            'cal_valder_rating','affin_word_score','cal_valder_compound','cal_valder_pos','cal_valder_neg','cal_valder_neu',"need_inspection",'no_of_text_chars']
 
-filenameAFINN="C:/Users/ykutta2/Desktop/YELP_REVIEWS/code/Sentiment Analysis/opinion-lexicon-English/AFINN-111.txt"
-add_filename="C:/Users/ykutta2/Desktop/YELP_REVIEWS/code/Sentiment Analysis/opinion-lexicon-English/additional_words.txt"
+filenameAFINN="/Users/apple/Desktop/YELP_REVIEWS/code/Sentiment Analysis/opinion-lexicon-English/AFINN-111.txt"
+add_filename="/Users/apple/Desktop/YELP_REVIEWS/code/Sentiment Analysis/opinion-lexicon-English/additional_words.txt"
 def main():
-    afinnfile = open(filenameAFINN)
+    afinnfile = open(filenameAFINN,'r',encoding='ISO-8859-1')
     scores = {} # initialize an empty dictionary
     for line in afinnfile:
         term, score  = line.split("\t")  # The file is tab-delimited. "\t" means "tab character"
         affin[term] = int(score)  # Convert the score to an integer.
 
     ##adding addtional terms to afinn_dict
-    add_file = open(add_filename)
+    add_file = open(add_filename,'r',encoding='ISO-8859-1')
     scores = {} # initialize an empty dictionary
     for line in add_file:
         term, score  = line.split("\t")  # The file is tab-delimited. "\t" means "tab character"
@@ -36,9 +36,9 @@ def main():
 
     ##Reading from scrapped reviews, for each business id collecting all possible Review_text
     sid = SentimentIntensityAnalyzer()
-    with open('chicago_reviews_part1.csv', 'r',encoding='ISO-8859-1',newline='') as csvreaderfile:
+    with open('/Users/apple/Desktop/YELP_REVIEWS/code/data/ready_data/elgin/elgin_reviews_part13.csv', 'r',encoding='ISO-8859-1',newline='') as csvreaderfile:
         reader = csv.DictReader(csvreaderfile)
-        with open('chicago_reviews_part1_dictsentiment_Data.csv', 'w',encoding='ISO-8859-1',newline='') as csvwriterfile:
+        with open('elgin_reviews_part13_dict_sentiment_Data.csv', 'w',encoding='ISO-8859-1',newline='') as csvwriterfile:
             writer = csv.writer(csvwriterfile, dialect='excel')
             writer.writerow(header_row)
         
@@ -49,6 +49,7 @@ def main():
                 neu_score=0.0
                 compound_score=0.0
                 review_rating=row['star_rating']
+                total_no_of_text_chars = len(row['review_text'])
                 business_id=row['business_id']
                 need_inspection="No"
                 ##Processing the text for affin analysis
@@ -102,11 +103,12 @@ def main():
 
                 total_words=len(affin_processed_review_text.split(' '))
 
-                if((abs(int(review_rating) - valder_senti_score) > 3) and (abs(int(review_rating) - cal_sentiment_score) > 3)):
+                if((abs(float(review_rating) - valder_senti_score) > 3) and (abs(float(review_rating) - cal_sentiment_score) > 3)):
                     need_inspection="YES"
+ 
                 
-                temp_row=[business_id,row['username'],row['user_id'],row['review_id'],row['review_text'],total_words,review_rating,cal_sentiment_score,
-                          valder_senti_score,affin_word_score,compound_score,pos_score,neg_score,neu_score,need_inspection]
+                temp_row=[business_id,row['username'],row['user_id'],row['review_id'],row['review_text'],row['review_date'],total_words,review_rating,cal_sentiment_score,
+                          valder_senti_score,affin_word_score,compound_score,pos_score,neg_score,neu_score,need_inspection,total_no_of_text_chars]
                 writer.writerow(temp_row);
             
 def affin_text_processing(text):
