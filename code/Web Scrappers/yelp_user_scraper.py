@@ -1,172 +1,183 @@
-#!/usr/bin/python
-#import psycopg2 #db interface
-import numpy
 import sys
-import socket
 import csv
-import urllib2
-from BeautifulSoup import BeautifulSoup
-reload(sys)   #Hacky fix: beware--this needs to be investigated further before reusing script!
-sys.setdefaultencoding('utf-8') #Hacky fix
+import re
+import urllib
+from urllib.request import urlopen
+from urllib.request import Request
+from urllib.request import URLError
+from urllib.request import HTTPError
+from bs4 import BeautifulSoup 
 
-'''
-#CONNECT TO DB---------------------------------------------------
-con = None
-try:
-  con = psycopg2.connect(database='test_db',user='postgres')
-  cur = con.cursor()
-#----------------------------------------------------------------
-'''
+user_ids_dict = ['THzkBtmO_F2NKynsAb_ECw','TARYDgo1f3sZqqb3hwFolw','U-nR7ND8CDN2x8ia73CH2Q','2wzBYj-J0xQ2RWD46cDI5w']
+users_count = 0
 
-#SCRAPE DATA
-businesses_dict = {}
-businesses_count = 0
+## Read User ID data from file
+##with open('joliet_part7.csv','rU') as readfile:
+##  reader = csv.reader(readfile)
+##  for row in reader:
+##    user_ids_dict[row[0]] = [row[2]]
+##    users_count += 1
 
-with open('joliet_part7.csv','rU') as readfile:
-  reader = csv.reader(readfile)
-  for row in reader:
-    businesses_dict[row[0]] = [row[2]]
-    businesses_count += 1
-
-writefile = open('joliet_reviews_part7.csv','w')
+writefile = open('user_data.csv','w')
 writer = csv.writer(writefile)
 
-businesses_processed_count = 0
+users_processed_count = 0
+user_basic_url="https://www.yelp.com/user_details?userid="
 
-for b_id in businesses_dict: #expand business urls, getting each page of 20 reviews
-  print "\n--------------Progress: {0} / {1} businesses scraped.-------------\n".format(businesses_processed_count,businesses_count)
-  print b_id
-  businesses_dict[b_id].extend([businesses_dict[b_id][0] + '?start=%d' % i for i in range(20,100,20)])
-  print businesses_dict[b_id]
-
-  for review_page in businesses_dict[b_id]:
-    print review_page
-    try:
-      page_html = urllib2.urlopen(review_page).read()
-    except urllib2.HTTPError, e:
-      checksLogger.error('URLError = ' + str(e.code))
-    except urllib2.URLError, e:
-      checksLogger.error('URLError = ' + str(e.reason))
-    except httplib.HTTPException, e:
-      checksLogger.error('HTTPException')
-    except Exception:
-      import traceback
-      checksLogger.error('generic exception: ' + traceback.format_exc())
-
-    soup = BeautifulSoup(page_html)
-
-    if soup.find("div","error-wrap") or not soup.find("div","review review--with-sidebar"): #check if page is valid
-      break
-
-    else: #(indent all below)
-      #get user_names list
-      names = soup.findAll("meta",attrs={"itemprop":"author"})
-      user_names = [name['content'] for name in names] #final user_names list
-
-      #get review count per page
-      review_count = len(user_names)
+for u_id in user_ids_dict: 
+  user_url=user_basic_url.strip()+u_id
   
-      #get user_ids list
-      just_review_uids = soup.findAll("li","user-name")
-      just_review_uids_strings = [str(element) for element in just_review_uids]
-      parse_uids_left = [x.split("userid=")[1] for x in just_review_uids_strings]   
-      user_ids = [y.split("\"")[0] for y in parse_uids_left] #final user_ids list
-
-      #get user_cities list
-      tagged_locations = soup.findAll("li","user-location responsive-hidden-small")
-      user_cities = [location.text for location in tagged_locations] #final user_cities list
-  
-      #get user elite status list
-      reviews_list = soup.findAll("div","review-sidebar-content")
-      reviews_list = reviews_list[1:]
-      elite_tags = [tag.find("li","is-elite responsive-small-display-inline-block") for tag in reviews_list] 
-      user_elite_statuses_bool = [0 if status == None else 1 for status in elite_tags] 
-      user_elite_statuses = [str(x) for x in user_elite_statuses_bool] #final user_elite_statuses list, elite status = 1, not elite = 0
-
-      #get check-ins
-      review_content_list = soup.findAll("div","review-content")
-      checkins_tags = [tag.find("span","icon icon--18-check-in icon--size-18 u-space-r-half") for tag in review_content_list]
-      user_checkins_bool = [0 if checkin == None else 1 for checkin in checkins_tags] 
-      user_checkins = [str(x) for x in user_checkins_bool] #final user_checkins list
-
-      #get user pics yes/no list 
-      names_list = soup.findAll("meta",attrs={"itemprop":"author"})
-      names_list_text = [name['content'] for name in names_list]
-      anchor_tag = soup.find("div","review-sidebar")
-      img_tags_list = [str(anchor_tag.findNext("img",attrs={"alt":name})) for name in names_list_text]
-      split_strings = [tag.split('src="')[1] for tag in img_tags_list]
-      img_url_list = [tag.split('"') for tag in split_strings]
-      user_has_pics_bool = [0 if string == 'https://s3-media2.fl.yelpcdn.com/assets/srv0/yelp_styleguide/aa0937a60f33/assets/img/default_avatars/user_60_square.png' else 1 for string in img_url_list]
-      user_has_pics = [str(x) for x in user_has_pics_bool] #final user_has_pics list: has photo = 1, no photo = 0
+  try:
+    page_html = urlopen(user_url)
     
-      #get user friend counts
-      friends_tag = soup.findAll("li","friend-count responsive-small-display-inline-block")
-      user_friend_counts = [count.text.split("friend")[0] for count in friends_tag] #final ufc list
-  
-      #get user review counts
-      reviews_count_tag = soup.findAll("li","review-count responsive-small-display-inline-block")
-      review_counts = [rcount.text.split("review")[0] for rcount in reviews_count_tag] 
-      user_review_counts = review_counts[1:] #final user_review_counts list
-  
-      #get review ids
-      reviews_listed = soup.findAll("div","review review--with-sidebar")
-      reviews_listed = reviews_listed[1:]
-      split_review_ids = [str(review).split('data-review-id="')[1] for review in reviews_listed]
-      review_ids = [review.split('"')[0] for review in split_review_ids] #final review_ids list
-   
-      #get review star ratings
-      reviews_content_list = soup.findAll("div",attrs={"itemprop":"review"})
-      ratings_list = [tag.find("meta",attrs={"itemprop":"ratingValue"}) for tag in reviews_content_list]
-      review_star_ratings = [rated['content'] for rated in ratings_list] #final star rating list
-  
-      #get review_dates list
-      dates_list = soup.findAll("meta",attrs={"itemprop":"datePublished"})
-      review_dates = [date['content'] for date in dates_list] #final publish dates list
-  
-      #get review_texts list
-      bodies_of_reviews = soup.findAll("p",attrs={"itemprop":"description"}) 
-      review_texts = [rev.text for rev in bodies_of_reviews] #final list of review text/body
-  
-      #CONSTRUCT REVIEW ROWS - SEND EACH ROW TO DB
-      for i in range(0,review_count - 1):
-        review_data_row = []
-        review_data_row.extend([b_id,user_names[i],user_ids[i],user_cities[i],user_elite_statuses[i],user_has_pics[i],user_checkins[i],user_friend_counts[i],user_review_counts[i],review_ids[i],review_star_ratings[i],review_dates[i],review_texts[i]])
-        review_data_array = numpy.asarray(review_data_row)
-        writer.writerow(review_data_array)
-#[string.encode('utf-8','xmlcharrefreplace') for string in review_data_row]
+  except urllib.HTTPError as e:
+    checksLogger.error('URLError = ' + str(e.code))
+    
+  except urllib.URLError as e:
+    checksLogger.error('URLError = ' + str(e.reason))
+    
+  except httplib.HTTPException as e:
+    checksLogger.error('HTTPException')
+    
+  except Exception:
+    import traceback
+    checksLogger.error('generic exception: ' + traceback.format_exc())
 
-  businesses_processed_count += 1
+  soup = BeautifulSoup(page_html,"html.parser")
+
+  if soup.find("div","error-wrap") or not soup.find("div","user-profile_container"): 
+    print("Cannot confirm User Account Loading Page: %s", u_id)
+    break
+
+  else: #(indent all below)
+    #get user_name
+    user_name_div = soup.findAll("div","user-profile_info arrange_unit")
+    user_name = user_name_div[0].contents[1].string
+    print(user_name)
+
+    #get user_location
+    user_location=soup.find("h3","user-location alternate").string
+    print(user_location)
+    
+    #get user_tagline if any
+    if(user_name_div[0].find('p','user-tagline')):
+      user_tagline=user_name_div[0].find('p','user-tagline').string
+    else:
+        user_tagline=''
+    print(user_tagline)
+
+    #get number of friends
+    info_list = soup.findAll("ul","user-passport-stats")
+    friend_list_class = [tag.find("li","friend-count") for tag in info_list]
+    friend_list_tag = [tag.find("strong") for tag in friend_list_class]
+    friend_count=friend_list_tag[0].text
+    print(friend_count)
+
+    #get number of reviews written
+    review_list_class = [tag.find("li","review-count") for tag in info_list]
+    review_list_tag = [tag.find("strong") for tag in review_list_class]
+    review_count=review_list_tag[0].text
+    print(review_count)
+
+    #get number of photos posted
+    photo_list_class = [tag.find("li","photo-count") for tag in info_list]
+    photo_list_tag = [tag.find("strong") for tag in photo_list_class]
+    photo_count=photo_list_tag[0].text
+    print(photo_count)
+
+    #get rating distribution
+    about_li=soup.findAll("div","user-details-overview_sidebar")
+    rating_table=[tag.find("table","histogram histogram--alternating") for tag in about_li]
+
+    five_star_tabl_cols = [row.find('tr',"histogram_row histogram_row--1") for row in rating_table]
+    five_start_count=five_star_tabl_cols[0].find('td','histogram_count').string
+    print(five_start_count)
+    
+    four_star_tabl_cols = [row.find('tr',"histogram_row histogram_row--2") for row in rating_table]
+    four_start_count=four_star_tabl_cols[0].find('td','histogram_count').string
+    print(four_start_count)
+    
+    three_star_tabl_cols = [row.find('tr',"histogram_row histogram_row--3") for row in rating_table]
+    three_start_count=three_star_tabl_cols[0].find('td','histogram_count').string
+    print(three_start_count)
+
+    two_star_tabl_cols = [row.find('tr',"histogram_row histogram_row--4") for row in rating_table]
+    two_start_count=two_star_tabl_cols[0].find('td','histogram_count').string
+    print(two_start_count)
+    
+    one_star_tabl_cols = [row.find('tr',"histogram_row histogram_row--5") for row in rating_table]
+    one_start_count=one_star_tabl_cols[0].find('td','histogram_count').string
+    print(one_start_count)
+
+    ##get review votes
+    useful_votes_list=soup.find("span","icon icon--18-useful-outline icon--size-18 u-space-r1")
+    useful_review_count=useful_votes_list.parent.find("strong").text
+    print("useful_review_count : %s",useful_review_count)
+    
+    funny_votes_list=soup.find("span","icon icon--18-funny-outline icon--size-18 u-space-r1")
+    funny_review_count=funny_votes_list.parent.find("strong").text
+    print("funny_review_count : %s",funny_review_count)
+
+    cool_votes_list=soup.find("span","icon icon--18-cool-outline icon--size-18 u-space-r1")
+    cool_review_count=cool_votes_list.parent.find("strong").text
+    print("cool_review_count : %s",cool_review_count)
+
+    ##get stats
+    stats_list=soup.find(text='Stats').findNext('ul','ylist ylist--condensed')
+    li=stats_list.findAll("li")
+    items= [i.text.strip() for i in li]
+    stats_dict={}
+    for i in items:
+      stats_dict[i.split('\n')[0].strip()]=i.split('\n')[1].strip()
+    print(stats_dict)
+    
+    ##get total number of compliments
+    pattern=re.compile('[\d+] Compliment')
+    compliments_str=soup.find(string=pattern)
+    if compliments_str:
+      compliments_number=int(compliments_str.split(' ')[0])
+    else:
+      compliments_number=0
+    print("compliments:",compliments_number)
+    
+    #get any other details yelping since,etc
+    yelping_since_list=soup.find(text='Yelping Since')
+    yelping_since=yelping_since_list.findNext('p').text
+    print("yelping_since:", yelping_since)
+
+    other_info_list=yelping_since_list.parent.parent.parent
+    all_li=other_info_list.findAll("li")
+    all_items= [i.text.strip() for i in all_li]
+    other_info_dict={}
+    for i in all_items:
+      other_info_dict[i.split('\n')[0].strip()]=i.split('\n')[1].strip()
+    print(other_info_dict)
+    
+    #elite since
+    elite_status_count=0
+    elite_since_list=soup.find("a","badge-bar")
+    if elite_since_list:
+      elite_status_count=len(elite_since_list.findAll("span"))
+    print("elite_status_count:",elite_status_count)
+
+    #view more graphs location distribution
+
+user_url1="https://www.yelp.com/user_details_more_graphs_jquery/2wzBYj-J0xQ2RWD46cDI5w"
+page_html1 = urlopen(user_url1)
+soup1 = BeautifulSoup(page_html1,"html.parser")
+print(soup1.prettify())
+     
+##      #CONSTRUCT USER ROWS - SEND EACH ROW TO file
+#       review_data_row = []
+##        review_data_row.extend([b_id,user_names[i],user_ids[i],user_cities[i],user_elite_statuses[i],user_has_pics[i],user_checkins[i],user_friend_counts[i],user_review_counts[i],review_ids[i],review_star_ratings[i],review_dates[i],review_texts[i]])
+##        review_data_array = numpy.asarray(review_data_row)
+##        writer.writerow(review_data_array)
+###[string.encode('utf-8','xmlcharrefreplace') for string in review_data_row]
+##
+##  businesses_processed_count += 1
 
 #close the writefile
 writefile.close()
-
-
-''' ROW HEADINGS: <Business ID, Username, User ID, User City, Elite Status Y/N?, Has Pic Y/N?, Checkins, User Friend Count, User Review Count, Review ID, Review Star Rating, Review Date, Review Text>
-
-
-
-
-        #SEND DATA TO DB
-        cur.execute("CREATE TABLE test_table(Column1 VARCHAR(10), Column2 VARCHAR(10))")
-        cur.execute("INSERT INTO test_table VALUES('test1','testing1')")
-        con.commit()
-
-#CONNECT TO DB: CATCH ERRORS---------------------------------------------------------------------
-except psycopg2.DatabaseError, e:
-  if con:
-    con.rollback()
-
-  print 'Error %s' % e
-  sys.exit(1)
-#-------------------------------------------------------------------------------------------------
-
-#CLOSE DB-----------------------------------------------------------------------------------------
-finally:
-  if con:
-    con.close()
-#-------------------------------------------------------------------------------------------------
-
-'''
 
 
   
