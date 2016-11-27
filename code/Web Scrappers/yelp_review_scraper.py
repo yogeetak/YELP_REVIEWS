@@ -5,6 +5,7 @@ import sys
 import socket
 import csv
 import urllib2
+import httplib
 from BeautifulSoup import BeautifulSoup
 reload(sys)   #Hacky fix: beware--this needs to be investigated further before reusing script!
 sys.setdefaultencoding('utf-8') #Hacky fix
@@ -22,13 +23,13 @@ try:
 businesses_dict = {}
 businesses_count = 0
 
-with open('schaumburg_part15.csv','rU') as readfile:
+with open('aurora_part14.csv','rU') as readfile:
   reader = csv.reader(readfile)
   for row in reader:
     businesses_dict[row[0]] = [row[2]]
     businesses_count += 1
 
-writefile = open('schaumburg_reviews_part15.csv','w')
+writefile = open('aurora_reviews_part14.csv','w')
 writer = csv.writer(writefile)
 
 businesses_processed_count = 0
