@@ -4,23 +4,23 @@ import json
 import csv
 import sys
 auth = Oauth1Authenticator(
-    consumer_key= "",
-    consumer_secret="",
-    token= "",
-    token_secret= "-TVs"
-)
+    consumer_key= "RvGtzG-WzFOhufGfqqb7lw",
+    consumer_secret="t1RMgbQSEQmZotZDlsgfHrUBDg4",
+    token= "XVqzdbhJ4qxBzQUvUMRYs1p5q5QdZ54x",
+    token_secret= "_dHVkCcc5gerUWGu6faJMyQ-TVs"
+    )
 client = Client(auth)
 page = 0
 business_id_dict={}
 header_row=['business_id','business_name','business_url','business_rating','business_categories','business_locationaddress','business_country','business_city','business_statecode','business_zipcode','business_reviewcount','is_claimed','snippet_text','offset']
  
 
-with open('LA.csv', 'w',encoding='utf8',newline='') as csvfile:  
+with open('Seattle.csv', 'w',encoding='utf8',newline='') as csvfile:  
     writer = csv.writer(csvfile, dialect='excel')
     writer.writerow(header_row)
 
     ##calling YELP SEARCH API
-    response = client.search(location="LA",categories="restaurants",term="restaurants", offset=0)
+    response = client.search(location="Seattle",categories="restaurants",term="restaurants", offset=0)
     temp_offset_val=0
     for business in response.businesses:
         temp_row=[]
@@ -35,7 +35,7 @@ with open('LA.csv', 'w',encoding='utf8',newline='') as csvfile:
             
     while response:
         page += 1
-        response = client.search(location="LA", categories="restaurants",term="restaurants", offset=page)
+        response = client.search(location="Seattle", categories="restaurants",term="restaurants", offset=page)
         temp_offset_val=page 
         for business in response.businesses:
             temp_row=[]
