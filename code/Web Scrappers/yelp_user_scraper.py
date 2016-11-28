@@ -1,4 +1,3 @@
-import numpy
 import csv
 import re
 import urllib
@@ -12,7 +11,8 @@ from bs4 import BeautifulSoup
 def load_Users_Dict():
   user_ids_list=[]
   ##Read User ID data from file
-  with open('/Users/apple/Desktop/YELP_REVIEWS/code/data/user_data_to_scrape/user_ids_chicago_part1.csv',encoding='ISO-8859-1') as readfile:
+  ##with open('/Users/apple/Desktop/YELP_REVIEWS/code/data/user_data_to_scrape/user_ids_chicago_part1.csv',encoding='ISO-8859-1') as readfile:
+  with open('user_ids_chicago_part1.csv',encoding='ISO-8859-1') as readfile:
     reader = csv.DictReader(readfile)
     for row in reader:
       user_ids_list.append(row['user_id'])
@@ -87,7 +87,8 @@ def main():
 
         if soup.find("div","error-wrap") or not soup.find("div","user-profile_container"): 
           print("Cannot confirm User Account Loading Page: %s", u_id)
-          break
+          print(user_url)
+          continue
 
         else:
           
