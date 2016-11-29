@@ -1,3 +1,0 @@
-Data for each review is stored in a csv with the following categories per row:
-
-<Business ID, Username, User ID, User City, Elite Status Y/N?, Has Pic Y/N?, Checkins, User Friend Count, User Review Count, Review ID, Review Star Rating, Review Date, Review Text>

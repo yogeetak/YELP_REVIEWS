@@ -1,65 +1,0 @@
-Date: November 13
-
-User: john.murrayk98@gmail.com
-Time: 9AM
-Posted Test Case: TestCase 4 - Positive Reviews with less star
-
-Businesses:
-
-https://www.yelp.com/biz/kurah-mediterranean-chicago-2https://www.yelp.com/biz/bar-marta-chicagohttps://www.yelp.com/biz/benjyehuda-chicagohttps://www.yelp.com/biz/bree-thai-restaurant-chicago
-https://www.yelp.com/biz/tortoise-supper-club-chicago-2
-
-
-Test Case: General Common Review (11/1/2016)
-https://www.yelp.com/biz/girl-and-the-goat-chicago
-
-
-Test Case: TestCase 8 - Oldest Elite Review with positive rating
-https://www.yelp.com/biz/currency-exchange-cafe-chicago-2
-https://www.yelp.com/biz/half-shell-chicago
-https://www.yelp.com/biz/la-catedral-cafe-and-restaurant-chicago-2
-https://www.yelp.com/biz/cafe-53-chicago
-
-Test Case: TestCase 9 - Oldest Elite Review with Negative rating
-https://www.yelp.com/biz/pizzeria-del-mercato-chicago
-
-
-User: murray.ptr12@gmail.com
-Posted Test Case 10 - Chinese Category reviews
-Time: 2:15PM
-
-https://www.yelp.com/biz/mos-asian-bistro-chicago
-https://www.yelp.com/biz/wow-bao-chicago-5
-https://www.yelp.com/biz/youngs-chinese-restaurant-chicago
-
-Posted Test Case: TestCase 4 - Positive Reviews with less star
-https://www.yelp.com/biz/tuscany-restaurant-chicago
-https://www.yelp.com/biz/lyfe-kitchen-chicago-2
-
-After 24 hours checked: All reviews still remain
-Screenshots in posting1 folder
-
-
-Date:Nov 14
-User: calvin.moses@yahoo.com
-Posted Time: 10:30PM
-Posted Test Case 10 - Chinese Category reviews
-
-https://www.yelp.com/biz/dim-sum-house-chicagohttps://www.yelp.com/biz/mak-restaurant-chicagohttps://www.yelp.com/biz/hong-huah-chicagohttps://www.yelp.com/biz/new-china-tea-chicago
-
-
-Test Case: TestCase 4 - Positive Reviews with less star
-
-https://www.yelp.com/biz/batter-and-berries-chicagohttps://www.yelp.com/biz/river-roast-chicago-3https://www.yelp.com/biz/guss-world-famous-fried-chicken-chicagohttps://www.yelp.com/biz/philly-bros-chicago
-
-TestCase 9 - Oldest Elite Review with Negative rating
-
-https://www.yelp.com/biz/dunlays-on-clark-chicagohttps://www.yelp.com/biz/the-glunz-tavern-chicago
-
-
-User-cs441.ksharma@gmail.com
-
-https://www.yelp.com/biz/calumet-fisheries-chicago-4https://www.yelp.com/biz/dosirak-chicagohttps://www.yelp.com/biz/old-town-social-chicagohttps://www.yelp.com/biz/county-barbeque-chicagohttps://www.yelp.com/biz/rivers-chicago
-
-User: ykutta2@uic.edu
-https://www.yelp.com/biz/fat-rice-chicagohttps://www.yelp.com/biz/vora-chicagohttps://www.yelp.com/biz/de-rice-chicagohttps://www.yelp.com/biz/friendship-chinese-restaurant-chicagohttps://www.yelp.com/biz/min-min-asian-cafe-chicago
