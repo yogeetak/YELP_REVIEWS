@@ -12,7 +12,7 @@ def load_Users_Dict():
   user_ids_list=[]
   ##Read User ID data from file
   ##with open('/Users/apple/Desktop/YELP_REVIEWS/code/data/user_data_to_scrape/user_ids_chicago_part1.csv',encoding='ISO-8859-1') as readfile:
-  with open('user_ids_napervillie_part1.csv',encoding='ISO-8859-1') as readfile:
+  with open('user_ids_napervillie_part2.csv',encoding='ISO-8859-1') as readfile:
     reader = csv.DictReader(readfile)
     for row in reader:
       user_ids_list.append(row['user_id'])
@@ -54,7 +54,7 @@ def main():
               'compliments_number','yelping_since','other_info_dict','elite_status_count','user_cities_dict','user_city_count']
 
 
-  with open('user_data_Naperville.csv', 'w',encoding='utf-8',newline='') as writefile:
+  with open('user_data_NapervilleNew.csv', 'w',encoding='utf-8',newline='') as writefile:
     writer = csv.writer(writefile)
     writer.writerow(header_row)
     #user_ids_dict=["mRArfi2eu17IkBy9eGvB9A"]
