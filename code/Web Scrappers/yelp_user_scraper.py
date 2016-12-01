@@ -54,7 +54,7 @@ def main():
               'compliments_number','yelping_since','other_info_dict','elite_status_count','user_cities_dict','user_city_count']
 
 
-  with open('user_data_NapervilleNew.csv', 'w',encoding='utf-8',newline='') as writefile:
+  with open('user_data_elgin.csv', 'w',encoding='utf-8',newline='') as writefile:
     writer = csv.writer(writefile)
     writer.writerow(header_row)
     #user_ids_dict=["mRArfi2eu17IkBy9eGvB9A"]
