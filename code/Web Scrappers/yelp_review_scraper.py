@@ -23,13 +23,13 @@ try:
 businesses_dict = {}
 businesses_count = 0
 
-with open('aurora_part14.csv','rU') as readfile:
+with open('NewYork.csv','rU') as readfile:
   reader = csv.reader(readfile)
   for row in reader:
     businesses_dict[row[0]] = [row[2]]
     businesses_count += 1
 
-writefile = open('aurora_reviews_part14.csv','w')
+writefile = open('NewYork_reviews_part1.csv','w')
 writer = csv.writer(writefile)
 
 businesses_processed_count = 0
