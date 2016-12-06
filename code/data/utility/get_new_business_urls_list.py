@@ -6,12 +6,12 @@ import csv
 scraped_bizlist = []
 bizlist = []
 
-writefile = open('LA_part6.csv','wb')
+writefile = open('Seattle_part11.csv','wb')
 writer = csv.writer(writefile)
 
 #NEW CODE BETWEEN THESE COMMENTS
 
-with open('LA_reviews_part5.csv') as csvfile1:
+with open('Seattle_reviews_part10.csv') as csvfile1:
   readfile = csv.reader(csvfile1)
   for row in readfile:
     if row[0] in scraped_bizlist:
@@ -29,7 +29,7 @@ with open('LA_reviews_part5.csv') as csvfile1:
 
 bizcount = 0
 
-with open('LA_part5.csv') as csvfile2:
+with open('Seattle_part10.csv') as csvfile2:
   readfile2 = csv.reader(csvfile2)
   for row in readfile2:
     business_name = row[0]
